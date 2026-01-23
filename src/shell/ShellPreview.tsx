@@ -13,7 +13,7 @@ const defaultUser = {
   name: 'Demo User',
 }
 
-export function ShellPreview() {
+function ShellPreview() {
   return (
     <AppShell
       navigationItems={defaultNavigationItems}
@@ -48,3 +48,5 @@ export function ShellPreview() {
     </AppShell>
   )
 }
+
+export default ShellPreview
