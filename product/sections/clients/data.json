@@ -1,0 +1,492 @@
+{
+  "_meta": {
+    "models": {
+      "clients": "Companies or organizations you work with. Each client has stakeholders, opportunities, and projects.",
+      "stakeholders": "Key contacts within a client organization. Tagged with MEDDPICC roles like Champion or Economic Buyer.",
+      "opportunities": "Sales deals tracked through your pipeline. Move through stages from Lead to Closed Won/Lost.",
+      "activities": "Logged interactions like calls, meetings, and emails. Creates a timeline of engagement.",
+      "competitors": "Other companies or solutions being considered in a deal."
+    },
+    "relationships": [
+      "Each Client has many Stakeholders (the people you work with)",
+      "Each Client has many Opportunities (deals in your pipeline)",
+      "Each Opportunity can have Activities logged against it",
+      "Each Activity can involve one or more Stakeholders",
+      "Opportunities can mention Competitors being evaluated"
+    ]
+  },
+  "clients": [
+    {
+      "id": "client-001",
+      "name": "Acme Corporation",
+      "status": "active",
+      "deadline": "2024-06-30",
+      "budget": 150000,
+      "healthScore": 82,
+      "meddpicc": {
+        "metrics": "Reduce ticket resolution time by 40%, achieve 95% SLA compliance, decrease IT support costs by $200K annually",
+        "decisionCriteria": "Must integrate with ServiceNow, require SOC2 compliance, need 99.9% uptime SLA",
+        "decisionProcess": "Technical evaluation (Feb) → Security review (Mar) → CFO approval (Apr) → Legal/procurement (May)",
+        "paperProcess": "Standard MSA required, 30-day payment terms, procurement contact is Lisa Chen",
+        "identifiedPain": "Current ITSM tool causing 3-hour average resolution times, team frustrated with manual workflows",
+        "competition": "Evaluating ServiceNow (expensive) and Freshservice (lacks enterprise features)"
+      },
+      "createdAt": "2024-01-15T10:30:00Z",
+      "updatedAt": "2024-03-10T14:22:00Z"
+    },
+    {
+      "id": "client-002",
+      "name": "Globex Industries",
+      "status": "prospect",
+      "deadline": null,
+      "budget": 75000,
+      "healthScore": 45,
+      "meddpicc": {
+        "metrics": null,
+        "decisionCriteria": "Cloud-native solution, must support hybrid deployment",
+        "decisionProcess": null,
+        "paperProcess": null,
+        "identifiedPain": "Legacy system end-of-life in Q3, need migration path",
+        "competition": null
+      },
+      "createdAt": "2024-02-20T09:15:00Z",
+      "updatedAt": "2024-03-08T11:00:00Z"
+    },
+    {
+      "id": "client-003",
+      "name": "Initech Solutions",
+      "status": "active",
+      "deadline": "2024-04-15",
+      "budget": 95000,
+      "healthScore": 71,
+      "meddpicc": {
+        "metrics": "Automate 80% of routine IT requests, reduce help desk staff by 2 FTEs",
+        "decisionCriteria": "Self-service portal required, mobile app for technicians",
+        "decisionProcess": "Pilot with IT team (complete) → Expand to HR (current) → Company-wide rollout",
+        "paperProcess": "Using existing vendor agreement, NET 45 terms",
+        "identifiedPain": "IT team overwhelmed with password resets and access requests",
+        "competition": "Considered building in-house but timeline too aggressive"
+      },
+      "createdAt": "2023-11-05T08:00:00Z",
+      "updatedAt": "2024-03-12T16:45:00Z"
+    },
+    {
+      "id": "client-004",
+      "name": "Stark Manufacturing",
+      "status": "prospect",
+      "deadline": "2024-08-01",
+      "budget": 200000,
+      "healthScore": 28,
+      "meddpicc": {
+        "metrics": null,
+        "decisionCriteria": null,
+        "decisionProcess": null,
+        "paperProcess": null,
+        "identifiedPain": "Production line downtime costing $50K per incident",
+        "competition": null
+      },
+      "createdAt": "2024-03-01T13:20:00Z",
+      "updatedAt": "2024-03-05T10:10:00Z"
+    },
+    {
+      "id": "client-005",
+      "name": "Umbrella Health",
+      "status": "churned",
+      "deadline": null,
+      "budget": 60000,
+      "healthScore": 0,
+      "meddpicc": {
+        "metrics": "Was targeting HIPAA compliance automation",
+        "decisionCriteria": "Healthcare-specific features required",
+        "decisionProcess": "Lost to competitor in final stage",
+        "paperProcess": null,
+        "identifiedPain": "Manual compliance reporting taking 40 hours/month",
+        "competition": "Lost to MedIT Pro - had healthcare-specific modules"
+      },
+      "createdAt": "2023-08-10T11:00:00Z",
+      "updatedAt": "2024-01-20T09:30:00Z"
+    }
+  ],
+  "stakeholders": [
+    {
+      "id": "sh-001",
+      "clientId": "client-001",
+      "name": "Sarah Chen",
+      "email": "schen@acme.com",
+      "phone": "+1 (555) 123-4567",
+      "title": "VP of IT Operations",
+      "roleTags": ["champion", "technical_evaluator"],
+      "engagementLevel": "high",
+      "notes": "Strong advocate internally. Frustrated with current tool for 2 years. Met her at ServiceNow conference.",
+      "lastContactDate": "2024-03-10"
+    },
+    {
+      "id": "sh-002",
+      "clientId": "client-001",
+      "name": "Michael Torres",
+      "email": "mtorres@acme.com",
+      "phone": "+1 (555) 234-5678",
+      "title": "CFO",
+      "roleTags": ["economic_buyer"],
+      "engagementLevel": "medium",
+      "notes": "Cost-focused. Wants clear ROI documentation. Prefer email over calls.",
+      "lastContactDate": "2024-02-28"
+    },
+    {
+      "id": "sh-003",
+      "clientId": "client-001",
+      "name": "Jennifer Wu",
+      "email": "jwu@acme.com",
+      "phone": null,
+      "title": "IT Security Manager",
+      "roleTags": ["technical_evaluator"],
+      "engagementLevel": "medium",
+      "notes": "Running security assessment. Concerned about data residency.",
+      "lastContactDate": "2024-03-05"
+    },
+    {
+      "id": "sh-004",
+      "clientId": "client-001",
+      "name": "David Park",
+      "email": "dpark@acme.com",
+      "phone": "+1 (555) 345-6789",
+      "title": "Director of Procurement",
+      "roleTags": ["coach"],
+      "engagementLevel": "high",
+      "notes": "Helped us navigate their procurement process. Former colleague of our CEO.",
+      "lastContactDate": "2024-03-08"
+    },
+    {
+      "id": "sh-005",
+      "clientId": "client-002",
+      "name": "Robert Martinez",
+      "email": "rmartinez@globex.com",
+      "phone": "+1 (555) 456-7890",
+      "title": "CTO",
+      "roleTags": ["economic_buyer", "technical_evaluator"],
+      "engagementLevel": "low",
+      "notes": "Interested but hard to reach. Traveling frequently.",
+      "lastContactDate": "2024-02-15"
+    },
+    {
+      "id": "sh-006",
+      "clientId": "client-003",
+      "name": "Amanda Foster",
+      "email": "afoster@initech.com",
+      "phone": "+1 (555) 567-8901",
+      "title": "IT Director",
+      "roleTags": ["champion"],
+      "engagementLevel": "high",
+      "notes": "Driving the project internally. Weekly sync calls.",
+      "lastContactDate": "2024-03-12"
+    },
+    {
+      "id": "sh-007",
+      "clientId": "client-003",
+      "name": "Kevin O'Brien",
+      "email": "kobrien@initech.com",
+      "phone": null,
+      "title": "VP of Finance",
+      "roleTags": ["economic_buyer", "blocker"],
+      "engagementLevel": "low",
+      "notes": "Skeptical of ROI. Wants to see pilot results before expansion budget.",
+      "lastContactDate": "2024-02-20"
+    },
+    {
+      "id": "sh-008",
+      "clientId": "client-004",
+      "name": "Emily Watson",
+      "email": "ewatson@stark.com",
+      "phone": "+1 (555) 678-9012",
+      "title": "Plant Manager",
+      "roleTags": ["user"],
+      "engagementLevel": "disengaged",
+      "notes": "Initial contact. No follow-up meeting scheduled yet.",
+      "lastContactDate": "2024-03-01"
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "opp-001",
+      "clientId": "client-001",
+      "name": "EasyVista ITSM Implementation",
+      "type": "new",
+      "source": "referral",
+      "stage": "proposal",
+      "value": 145000,
+      "probability": 60,
+      "daysInStage": 12,
+      "expectedCloseDate": "2024-05-15",
+      "actualCloseDate": null,
+      "outcome": null,
+      "lossReason": null,
+      "createdBy": "user-001",
+      "createdAt": "2024-01-20T10:00:00Z",
+      "updatedAt": "2024-03-10T14:22:00Z"
+    },
+    {
+      "id": "opp-002",
+      "clientId": "client-002",
+      "name": "Cloud Migration Assessment",
+      "type": "new",
+      "source": "inbound",
+      "stage": "qualified",
+      "value": 35000,
+      "probability": 25,
+      "daysInStage": 8,
+      "expectedCloseDate": "2024-06-30",
+      "actualCloseDate": null,
+      "outcome": null,
+      "lossReason": null,
+      "createdBy": "user-001",
+      "createdAt": "2024-02-20T09:30:00Z",
+      "updatedAt": "2024-03-08T11:00:00Z"
+    },
+    {
+      "id": "opp-003",
+      "clientId": "client-002",
+      "name": "Legacy System Replacement",
+      "type": "new",
+      "source": "inbound",
+      "stage": "lead",
+      "value": 75000,
+      "probability": 10,
+      "daysInStage": 5,
+      "expectedCloseDate": "2024-09-01",
+      "actualCloseDate": null,
+      "outcome": null,
+      "lossReason": null,
+      "createdBy": "user-002",
+      "createdAt": "2024-03-05T14:00:00Z",
+      "updatedAt": "2024-03-05T14:00:00Z"
+    },
+    {
+      "id": "opp-004",
+      "clientId": "client-003",
+      "name": "HR Self-Service Portal",
+      "type": "expansion",
+      "source": "referral",
+      "stage": "negotiation",
+      "value": 55000,
+      "probability": 80,
+      "daysInStage": 6,
+      "expectedCloseDate": "2024-04-01",
+      "actualCloseDate": null,
+      "outcome": null,
+      "lossReason": null,
+      "createdBy": "user-001",
+      "createdAt": "2024-02-01T11:00:00Z",
+      "updatedAt": "2024-03-12T16:45:00Z"
+    },
+    {
+      "id": "opp-005",
+      "clientId": "client-004",
+      "name": "Manufacturing Floor ITSM",
+      "type": "new",
+      "source": "event",
+      "stage": "discovery",
+      "value": 200000,
+      "probability": 40,
+      "daysInStage": 3,
+      "expectedCloseDate": "2024-08-01",
+      "actualCloseDate": null,
+      "outcome": null,
+      "lossReason": null,
+      "createdBy": "user-002",
+      "createdAt": "2024-03-01T13:30:00Z",
+      "updatedAt": "2024-03-10T09:00:00Z"
+    },
+    {
+      "id": "opp-006",
+      "clientId": "client-005",
+      "name": "HIPAA Compliance Automation",
+      "type": "new",
+      "source": "outbound",
+      "stage": "closed_lost",
+      "value": 60000,
+      "probability": 0,
+      "daysInStage": 45,
+      "expectedCloseDate": "2024-01-15",
+      "actualCloseDate": "2024-01-20",
+      "outcome": "lost",
+      "lossReason": "Competitor had healthcare-specific compliance modules we couldn't match",
+      "createdBy": "user-001",
+      "createdAt": "2023-10-01T10:00:00Z",
+      "updatedAt": "2024-01-20T09:30:00Z"
+    }
+  ],
+  "activities": [
+    {
+      "id": "act-001",
+      "type": "meeting",
+      "subject": "Discovery call with Sarah and team",
+      "description": "Walked through current pain points. Sarah demonstrated their existing workflow - lots of manual ticket routing. Team excited about automation possibilities.",
+      "occurredAt": "2024-03-10T14:00:00Z",
+      "durationMinutes": 60,
+      "stakeholderIds": ["sh-001", "sh-003"],
+      "clientId": "client-001",
+      "opportunityId": "opp-001",
+      "projectId": null,
+      "createdBy": "user-001",
+      "sentiment": "positive",
+      "createdAt": "2024-03-10T15:00:00Z"
+    },
+    {
+      "id": "act-002",
+      "type": "email",
+      "subject": "Sent proposal document",
+      "description": "Delivered comprehensive proposal with 3 pricing tiers. Included ROI analysis as requested by CFO.",
+      "occurredAt": "2024-03-08T11:30:00Z",
+      "durationMinutes": null,
+      "stakeholderIds": ["sh-001", "sh-002"],
+      "clientId": "client-001",
+      "opportunityId": "opp-001",
+      "projectId": null,
+      "createdBy": "user-001",
+      "sentiment": "neutral",
+      "createdAt": "2024-03-08T11:35:00Z"
+    },
+    {
+      "id": "act-003",
+      "type": "call",
+      "subject": "Budget discussion with David",
+      "description": "David shared that Q2 budget is approved. Suggested we push for signature before April board meeting.",
+      "occurredAt": "2024-03-08T09:00:00Z",
+      "durationMinutes": 25,
+      "stakeholderIds": ["sh-004"],
+      "clientId": "client-001",
+      "opportunityId": "opp-001",
+      "projectId": null,
+      "createdBy": "user-001",
+      "sentiment": "positive",
+      "createdAt": "2024-03-08T09:30:00Z"
+    },
+    {
+      "id": "act-004",
+      "type": "meeting",
+      "subject": "Security assessment review",
+      "description": "Jennifer walked through her security checklist. Two items flagged: data residency (we can address) and penetration test (scheduled for next week).",
+      "occurredAt": "2024-03-05T10:00:00Z",
+      "durationMinutes": 45,
+      "stakeholderIds": ["sh-003"],
+      "clientId": "client-001",
+      "opportunityId": "opp-001",
+      "projectId": null,
+      "createdBy": "user-002",
+      "sentiment": "neutral",
+      "createdAt": "2024-03-05T11:00:00Z"
+    },
+    {
+      "id": "act-005",
+      "type": "note",
+      "subject": "Internal strategy note",
+      "description": "CFO seems hesitant on timeline. Recommend bringing ROI case study from similar manufacturing client to next meeting.",
+      "occurredAt": "2024-02-28T16:00:00Z",
+      "durationMinutes": null,
+      "stakeholderIds": [],
+      "clientId": "client-001",
+      "opportunityId": "opp-001",
+      "projectId": null,
+      "createdBy": "user-001",
+      "sentiment": null,
+      "createdAt": "2024-02-28T16:05:00Z"
+    },
+    {
+      "id": "act-006",
+      "type": "call",
+      "subject": "Initial discovery with Robert",
+      "description": "Brief call. Robert interested but delegating technical evaluation to his team. Need to identify who that is.",
+      "occurredAt": "2024-02-15T15:00:00Z",
+      "durationMinutes": 20,
+      "stakeholderIds": ["sh-005"],
+      "clientId": "client-002",
+      "opportunityId": "opp-002",
+      "projectId": null,
+      "createdBy": "user-001",
+      "sentiment": "neutral",
+      "createdAt": "2024-02-15T15:25:00Z"
+    },
+    {
+      "id": "act-007",
+      "type": "meeting",
+      "subject": "Weekly sync with Amanda",
+      "description": "Pilot going well. 85% satisfaction from IT team. Amanda pushing for HR expansion. Kevin still needs convincing.",
+      "occurredAt": "2024-03-12T10:00:00Z",
+      "durationMinutes": 30,
+      "stakeholderIds": ["sh-006"],
+      "clientId": "client-003",
+      "opportunityId": "opp-004",
+      "projectId": null,
+      "createdBy": "user-001",
+      "sentiment": "positive",
+      "createdAt": "2024-03-12T10:35:00Z"
+    },
+    {
+      "id": "act-008",
+      "type": "email",
+      "subject": "ROI data for Kevin",
+      "description": "Sent detailed breakdown showing $120K annual savings projection based on pilot metrics. Amanda will present to Kevin.",
+      "occurredAt": "2024-03-11T14:00:00Z",
+      "durationMinutes": null,
+      "stakeholderIds": ["sh-006", "sh-007"],
+      "clientId": "client-003",
+      "opportunityId": "opp-004",
+      "projectId": null,
+      "createdBy": "user-001",
+      "sentiment": "neutral",
+      "createdAt": "2024-03-11T14:10:00Z"
+    }
+  ],
+  "competitors": [
+    {
+      "id": "comp-001",
+      "name": "ServiceNow",
+      "website": "https://servicenow.com",
+      "strengths": "Enterprise scale, broad ecosystem, strong brand recognition",
+      "weaknesses": "Expensive, complex implementation, long deployment cycles",
+      "typicalPricing": "$100-150 per user/month for enterprise",
+      "notes": "Often seen as 'safe choice' but budget is a concern for mid-market"
+    },
+    {
+      "id": "comp-002",
+      "name": "Freshservice",
+      "website": "https://freshservice.com",
+      "strengths": "Easy to use, quick setup, competitive pricing",
+      "weaknesses": "Limited enterprise features, basic reporting, fewer integrations",
+      "typicalPricing": "$29-99 per agent/month",
+      "notes": "Good for SMB but struggles with complex enterprise requirements"
+    },
+    {
+      "id": "comp-003",
+      "name": "MedIT Pro",
+      "website": "https://meditpro.example.com",
+      "strengths": "Healthcare-specific compliance modules, HIPAA certified, industry expertise",
+      "weaknesses": "Narrow focus, limited to healthcare, smaller company",
+      "typicalPricing": "$75 per user/month + compliance modules",
+      "notes": "Won Umbrella Health deal. Strong in regulated healthcare verticals."
+    }
+  ],
+  "competitorMentions": [
+    {
+      "competitorId": "comp-001",
+      "opportunityId": "opp-001",
+      "status": "active",
+      "notes": "Acme got a quote from ServiceNow but balked at the price. Our main competition.",
+      "createdAt": "2024-02-01T10:00:00Z"
+    },
+    {
+      "competitorId": "comp-002",
+      "opportunityId": "opp-001",
+      "status": "displaced",
+      "notes": "Initially considered Freshservice but ruled out for lacking SSO and advanced workflows.",
+      "createdAt": "2024-01-25T09:00:00Z"
+    },
+    {
+      "competitorId": "comp-003",
+      "opportunityId": "opp-006",
+      "status": "lost_to",
+      "notes": "Umbrella chose MedIT Pro for their healthcare-specific HIPAA modules.",
+      "createdAt": "2024-01-20T09:30:00Z"
+    }
+  ]
+}
