@@ -1,0 +1,227 @@
+{
+  "users": [
+    {
+      "id": "user-001",
+      "email": "alex@yourco.com",
+      "name": "Alex Rivera",
+      "role": "admin",
+      "avatarUrl": null,
+      "createdAt": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": "user-002",
+      "email": "jamie@yourco.com",
+      "name": "Jamie Chen",
+      "role": "consultant",
+      "avatarUrl": null,
+      "createdAt": "2024-02-01T09:00:00Z"
+    }
+  ],
+  "clients": [
+    {
+      "id": "client-001",
+      "name": "Acme Corporation",
+      "status": "active",
+      "deadline": "2025-06-30",
+      "budget": 150000,
+      "meddpiccMetrics": "Reduce ticket resolution time by 40%. Save $500K annually in operational costs.",
+      "meddpiccDecisionCriteria": "Integration with existing AD infrastructure. Under budget. Live by Q2.",
+      "meddpiccDecisionProcess": "Technical eval → Procurement review → CFO approval → Legal review → Sign",
+      "meddpiccPaperProcess": "PO required. Route through procurement portal. Net-30 terms.",
+      "meddpiccIdentifiedPain": "Current ITSM tool is outdated. Manual processes causing delays.",
+      "meddpiccCompetition": "ServiceNow (expensive), Freshservice (limited features)",
+      "healthScore": 78,
+      "createdAt": "2024-03-01T08:00:00Z",
+      "updatedAt": "2025-01-20T14:30:00Z"
+    },
+    {
+      "id": "client-002",
+      "name": "Globex Industries",
+      "status": "prospect",
+      "deadline": null,
+      "budget": 75000,
+      "meddpiccMetrics": null,
+      "meddpiccDecisionCriteria": null,
+      "meddpiccDecisionProcess": null,
+      "meddpiccPaperProcess": null,
+      "meddpiccIdentifiedPain": "Need modern project management solution",
+      "meddpiccCompetition": null,
+      "healthScore": 42,
+      "createdAt": "2025-01-10T11:00:00Z",
+      "updatedAt": "2025-01-18T09:15:00Z"
+    }
+  ],
+  "stakeholders": [
+    {
+      "id": "stake-001",
+      "clientId": "client-001",
+      "name": "Sarah Chen",
+      "email": "sarah.chen@acme.corp",
+      "phone": "+1-555-0101",
+      "title": "VP of IT",
+      "roleTags": ["champion", "technical_evaluator"],
+      "engagementLevel": "high",
+      "notes": "Strong advocate. Weekly syncs.",
+      "lastContactDate": "2025-01-19",
+      "createdAt": "2024-03-01T08:30:00Z"
+    },
+    {
+      "id": "stake-002",
+      "clientId": "client-001",
+      "name": "Michael Torres",
+      "email": "m.torres@acme.corp",
+      "phone": "+1-555-0102",
+      "title": "CFO",
+      "roleTags": ["economic_buyer"],
+      "engagementLevel": "medium",
+      "notes": "Budget authority. Needs ROI justification.",
+      "lastContactDate": "2025-01-15",
+      "createdAt": "2024-03-05T10:00:00Z"
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "opp-001",
+      "clientId": "client-001",
+      "name": "EasyVista ITSM Implementation",
+      "type": "new",
+      "source": "referral",
+      "stage": "proposal",
+      "value": 150000,
+      "probability": 60,
+      "daysInStage": 12,
+      "expectedCloseDate": "2025-02-28",
+      "actualCloseDate": null,
+      "outcome": null,
+      "lossReason": null,
+      "createdBy": "user-001",
+      "createdAt": "2024-03-01T09:00:00Z",
+      "updatedAt": "2025-01-20T14:00:00Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-001",
+      "clientId": "client-001",
+      "opportunityId": null,
+      "name": "Q2 Optimization Sprint",
+      "description": "Performance optimization and workflow improvements",
+      "status": "active",
+      "budget": 45000,
+      "startDate": "2025-01-01",
+      "endDate": "2025-03-31",
+      "progress": 35,
+      "createdAt": "2024-12-15T10:00:00Z",
+      "updatedAt": "2025-01-20T11:00:00Z"
+    }
+  ],
+  "phases": [
+    {
+      "id": "phase-001",
+      "projectId": "proj-001",
+      "name": "Discovery",
+      "order": 1,
+      "startDate": "2025-01-01",
+      "endDate": "2025-01-31",
+      "status": "completed"
+    },
+    {
+      "id": "phase-002",
+      "projectId": "proj-001",
+      "name": "Implementation",
+      "order": 2,
+      "startDate": "2025-02-01",
+      "endDate": "2025-03-15",
+      "status": "active"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-001",
+      "projectId": "proj-001",
+      "phaseId": "phase-002",
+      "assignedTo": "user-001",
+      "title": "Workflow Optimization",
+      "description": "Analyze and optimize current approval workflows",
+      "effort": "heavy",
+      "status": "in_progress",
+      "priority": "high",
+      "dueDate": "2025-02-15",
+      "isMilestone": false,
+      "isCritical": true,
+      "stakeholderIds": ["stake-001"],
+      "estimatedHours": 24,
+      "actualHours": 8,
+      "createdAt": "2025-01-15T09:00:00Z",
+      "updatedAt": "2025-01-20T10:00:00Z"
+    },
+    {
+      "id": "task-002",
+      "projectId": "proj-001",
+      "phaseId": "phase-002",
+      "assignedTo": "user-002",
+      "title": "Performance Audit Report",
+      "description": "Complete system performance audit and recommendations",
+      "effort": "medium",
+      "status": "review",
+      "priority": "medium",
+      "dueDate": "2025-02-10",
+      "isMilestone": true,
+      "isCritical": false,
+      "stakeholderIds": ["stake-001", "stake-002"],
+      "estimatedHours": 16,
+      "actualHours": 14,
+      "createdAt": "2025-01-10T14:00:00Z",
+      "updatedAt": "2025-01-19T16:00:00Z"
+    }
+  ],
+  "timeEntries": [
+    {
+      "id": "time-001",
+      "userId": "user-001",
+      "projectId": "proj-001",
+      "taskId": "task-001",
+      "invoiceId": null,
+      "hours": 4,
+      "date": "2025-01-20",
+      "description": "Workflow analysis session with Sarah",
+      "billable": true,
+      "createdAt": "2025-01-20T17:00:00Z"
+    }
+  ],
+  "activities": [
+    {
+      "id": "act-001",
+      "type": "call",
+      "subject": "Weekly sync with Sarah",
+      "description": "Discussed project timeline and upcoming milestones",
+      "occurredAt": "2025-01-19T14:00:00Z",
+      "durationMinutes": 30,
+      "stakeholderIds": ["stake-001"],
+      "clientId": "client-001",
+      "opportunityId": null,
+      "projectId": "proj-001",
+      "createdBy": "user-001",
+      "sentiment": "positive",
+      "createdAt": "2025-01-19T14:30:00Z"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "inv-001",
+      "clientId": "client-001",
+      "projectIds": ["proj-001"],
+      "invoiceNumber": "INV-2025-001",
+      "amount": 12500,
+      "currency": "USD",
+      "status": "sent",
+      "dueDate": "2025-02-15",
+      "sentDate": "2025-01-16",
+      "paidDate": null,
+      "recipientStakeholderId": "stake-002",
+      "notes": "January consulting services",
+      "createdAt": "2025-01-15T10:00:00Z",
+      "updatedAt": "2025-01-16T09:00:00Z"
+    }
+  ]
+}
