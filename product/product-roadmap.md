@@ -16,3 +16,6 @@ Auto-generated internal dashboards and client-facing status pages from live proj
 
 ### 5. Invoicing
 Integrated time tracking that flows directly into invoice generation.
+
+### 6. Admin
+User management, role-based access control, audit logging, and GDPR compliance.
