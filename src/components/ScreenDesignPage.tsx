@@ -34,16 +34,16 @@ const MIN_WIDTH = 320;
 const DEFAULT_WIDTH_PERCENT = 100;
 
 // Module-level caches for lazy components to avoid recreating on every render
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const screenDesignCache = new Map<
   string,
   React.LazyExoticComponent<React.ComponentType<any>>
 >();
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const appShellCache = new Map<
   string,
   React.LazyExoticComponent<React.ComponentType<any>>
 >();
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export function ScreenDesignPage() {
   const { sectionId, screenDesignName } = useParams<{
