@@ -1,5 +1,7 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { AppShell } from '@/shell/components/AppShell'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { AuthProvider, type AuthUser } from '@/lib/auth-context'
 
 const navigationItems = [
   { label: 'Clients', href: '/product/clients' },
@@ -10,8 +12,11 @@ const navigationItems = [
   { label: 'Settings', href: '/product/admin' },
 ]
 
-const mockUser = {
+const mockUser: AuthUser = {
+  id: 'user-1',
   name: 'Jordan Smith',
+  email: 'jordan@yourco.com',
+  role: 'admin',
   avatarUrl: undefined,
 }
 
@@ -25,13 +30,17 @@ export function ProductRoutes() {
   }))
 
   return (
-    <AppShell
-      navigationItems={itemsWithActiveState}
-      user={mockUser}
-      onNavigate={(href) => navigate(href)}
-      onLogout={() => navigate('/')}
-    >
-      <Outlet />
-    </AppShell>
+    <AuthProvider user={mockUser} onLogout={() => navigate('/')}>
+      <AppShell
+        navigationItems={itemsWithActiveState}
+        user={mockUser}
+        onNavigate={(href) => navigate(href)}
+        onLogout={() => navigate('/')}
+      >
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
+      </AppShell>
+    </AuthProvider>
   )
 }
