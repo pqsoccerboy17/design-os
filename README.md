@@ -28,27 +28,3 @@ Each step is a conversation. The AI asks questions, you provide direction, and t
 Docs, installation, usage, & best practices 👉 [It's all here](https://buildermethods.com/design-os)
 
 ---
-
-## Support, Training & Community
-
-For official support, training, and community as you use Design OS—for yourself or with your team, consider joining _Builder Methods Pro_. You'll get access to Brian Casel (the creator) for questions, a community of builders using Design OS, plus all Builder Methods workshops and training on AI-first development.
-
-👉 [Join Builder Methods Pro](https://buildermethods.com/pro)
-
----
-
-## Follow updates & releases
-
-Read the [changelog](CHANGELOG.md)
-
-[Subscribe to be notified of major new releases of Design OS](https://buildermethods.com/design-os)
-
----
-
-## Created by Brian Casel @ Builder Methods
-
-Created by Brian Casel, the creator of [Builder Methods](https://buildermethods.com), where Brian helps professional software developers and teams build with AI.
-
-Get Brian's free resources on building with AI:
-- [Builder Briefing newsletter](https://buildermethods.com)
-- [YouTube](https://youtube.com/@briancasel)
