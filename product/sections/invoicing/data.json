@@ -1,0 +1,465 @@
+{
+  "_meta": {
+    "description": "Sample data for Invoicing section - time tracking, invoices, and payments",
+    "models": {
+      "invoices": "Generated invoices for client work. Track status from draft through payment.",
+      "lineItems": "Individual billable items on an invoice. Usually derived from time entries.",
+      "timeEntries": "Logged hours against projects and tasks. Billable entries feed into invoices.",
+      "payments": "Payment records against invoices. Track method and reference numbers."
+    },
+    "crossReferences": {
+      "clients": "product/sections/clients/data.json",
+      "projects": "product/sections/projects/data.json",
+      "tasks": "product/sections/tasks/data.json"
+    }
+  },
+  "invoices": [
+    {
+      "id": "inv-001",
+      "clientId": "client-001",
+      "projectIds": ["proj-001", "proj-003"],
+      "invoiceNumber": "INV-2025-001",
+      "amount": 620000,
+      "currency": "USD",
+      "status": "paid",
+      "issueDate": "2025-01-05",
+      "dueDate": "2025-02-04",
+      "sentDate": "2025-01-05",
+      "paidDate": "2025-01-28",
+      "paymentMethod": "ach",
+      "recipientStakeholderId": "sh-002",
+      "notes": "January engagement hours. PO# ACME-2025-0042. Payment terms: NET 30 per MSA.",
+      "createdBy": "user-001",
+      "createdAt": "2025-01-05T10:00:00Z",
+      "updatedAt": "2025-01-28T14:30:00Z"
+    },
+    {
+      "id": "inv-002",
+      "clientId": "client-003",
+      "projectIds": ["proj-002"],
+      "invoiceNumber": "INV-2025-002",
+      "amount": 412500,
+      "currency": "USD",
+      "status": "sent",
+      "issueDate": "2025-01-15",
+      "dueDate": "2025-03-01",
+      "sentDate": "2025-01-15",
+      "paidDate": null,
+      "paymentMethod": null,
+      "recipientStakeholderId": "sh-007",
+      "notes": "HR Self-Service Portal - Phase 1 Discovery. NET 45 per existing agreement.",
+      "createdBy": "user-001",
+      "createdAt": "2025-01-15T09:00:00Z",
+      "updatedAt": "2025-01-15T09:30:00Z"
+    },
+    {
+      "id": "inv-003",
+      "clientId": "client-001",
+      "projectIds": ["proj-001"],
+      "invoiceNumber": "INV-2025-003",
+      "amount": 487500,
+      "currency": "USD",
+      "status": "draft",
+      "issueDate": "2025-01-23",
+      "dueDate": "2025-02-22",
+      "sentDate": null,
+      "paidDate": null,
+      "paymentMethod": null,
+      "recipientStakeholderId": "sh-002",
+      "notes": "EasyVista Implementation - AD Integration and CMDB Setup phases.",
+      "createdBy": "user-001",
+      "createdAt": "2025-01-23T08:00:00Z",
+      "updatedAt": "2025-01-23T08:00:00Z"
+    },
+    {
+      "id": "inv-004",
+      "clientId": "client-003",
+      "projectIds": ["proj-005"],
+      "invoiceNumber": "INV-2024-015",
+      "amount": 375000,
+      "currency": "USD",
+      "status": "overdue",
+      "issueDate": "2024-12-15",
+      "dueDate": "2025-01-29",
+      "sentDate": "2024-12-15",
+      "paidDate": null,
+      "paymentMethod": null,
+      "recipientStakeholderId": "sh-007",
+      "notes": "IT Service Desk Pilot completion. Reminder sent 2025-01-20.",
+      "createdBy": "user-001",
+      "createdAt": "2024-12-15T10:00:00Z",
+      "updatedAt": "2025-01-20T09:00:00Z"
+    }
+  ],
+  "lineItems": [
+    {
+      "id": "li-001",
+      "invoiceId": "inv-001",
+      "description": "EasyVista ITSM Implementation - Service Catalog Setup",
+      "quantity": 24,
+      "unitPrice": 15000,
+      "amount": 360000,
+      "projectId": "proj-001",
+      "taskId": "task-001"
+    },
+    {
+      "id": "li-002",
+      "invoiceId": "inv-001",
+      "description": "Q2 Optimization Sprint - Performance Audit",
+      "quantity": 8,
+      "unitPrice": 17500,
+      "amount": 140000,
+      "projectId": "proj-003",
+      "taskId": "task-007"
+    },
+    {
+      "id": "li-003",
+      "invoiceId": "inv-001",
+      "description": "Q2 Optimization Sprint - Workflow Analysis",
+      "quantity": 8,
+      "unitPrice": 15000,
+      "amount": 120000,
+      "projectId": "proj-003",
+      "taskId": null
+    },
+    {
+      "id": "li-004",
+      "invoiceId": "inv-002",
+      "description": "HR Self-Service Portal - Requirements Gathering",
+      "quantity": 16,
+      "unitPrice": 15000,
+      "amount": 240000,
+      "projectId": "proj-002",
+      "taskId": "task-005"
+    },
+    {
+      "id": "li-005",
+      "invoiceId": "inv-002",
+      "description": "HR Self-Service Portal - Technical Discovery",
+      "quantity": 11.5,
+      "unitPrice": 15000,
+      "amount": 172500,
+      "projectId": "proj-002",
+      "taskId": null
+    },
+    {
+      "id": "li-006",
+      "invoiceId": "inv-003",
+      "description": "EasyVista ITSM - AD Integration Setup",
+      "quantity": 20,
+      "unitPrice": 15000,
+      "amount": 300000,
+      "projectId": "proj-001",
+      "taskId": "task-002"
+    },
+    {
+      "id": "li-007",
+      "invoiceId": "inv-003",
+      "description": "EasyVista ITSM - CMDB Configuration",
+      "quantity": 12.5,
+      "unitPrice": 15000,
+      "amount": 187500,
+      "projectId": "proj-001",
+      "taskId": "task-003"
+    },
+    {
+      "id": "li-008",
+      "invoiceId": "inv-004",
+      "description": "IT Service Desk Pilot - Full Implementation",
+      "quantity": 25,
+      "unitPrice": 15000,
+      "amount": 375000,
+      "projectId": "proj-005",
+      "taskId": null
+    }
+  ],
+  "timeEntries": [
+    {
+      "id": "te-001",
+      "userId": "user-002",
+      "projectId": "proj-001",
+      "taskId": "task-002",
+      "invoiceId": null,
+      "date": "2025-01-20",
+      "hours": 4,
+      "description": "AD connector installation and basic config",
+      "billable": true,
+      "hourlyRate": null,
+      "createdAt": "2025-01-20T17:00:00Z",
+      "updatedAt": "2025-01-20T17:00:00Z"
+    },
+    {
+      "id": "te-002",
+      "userId": "user-002",
+      "projectId": "proj-001",
+      "taskId": "task-002",
+      "invoiceId": null,
+      "date": "2025-01-21",
+      "hours": 6,
+      "description": "LDAP sync configuration for department OUs",
+      "billable": true,
+      "hourlyRate": null,
+      "createdAt": "2025-01-21T17:30:00Z",
+      "updatedAt": "2025-01-21T17:30:00Z"
+    },
+    {
+      "id": "te-003",
+      "userId": "user-002",
+      "projectId": "proj-001",
+      "taskId": "task-002",
+      "invoiceId": null,
+      "date": "2025-01-22",
+      "hours": 5.5,
+      "description": "Troubleshooting nested OU sync issues",
+      "billable": true,
+      "hourlyRate": null,
+      "createdAt": "2025-01-22T16:00:00Z",
+      "updatedAt": "2025-01-22T16:00:00Z"
+    },
+    {
+      "id": "te-004",
+      "userId": "user-002",
+      "projectId": "proj-002",
+      "taskId": "task-006",
+      "invoiceId": null,
+      "date": "2025-01-21",
+      "hours": 3.5,
+      "description": "UI/UX wireframe review with Amanda",
+      "billable": true,
+      "hourlyRate": null,
+      "createdAt": "2025-01-21T14:00:00Z",
+      "updatedAt": "2025-01-21T14:00:00Z"
+    },
+    {
+      "id": "te-005",
+      "userId": "user-002",
+      "projectId": "proj-002",
+      "taskId": "task-006",
+      "invoiceId": null,
+      "date": "2025-01-22",
+      "hours": 2,
+      "description": "Design system component mapping",
+      "billable": true,
+      "hourlyRate": null,
+      "createdAt": "2025-01-22T12:00:00Z",
+      "updatedAt": "2025-01-22T12:00:00Z"
+    },
+    {
+      "id": "te-006",
+      "userId": "user-001",
+      "projectId": "proj-003",
+      "taskId": "task-007",
+      "invoiceId": null,
+      "date": "2025-01-22",
+      "hours": 3,
+      "description": "Performance baseline measurements",
+      "billable": true,
+      "hourlyRate": 17500,
+      "createdAt": "2025-01-22T18:00:00Z",
+      "updatedAt": "2025-01-22T18:00:00Z"
+    },
+    {
+      "id": "te-007",
+      "userId": "user-001",
+      "projectId": "proj-001",
+      "taskId": null,
+      "invoiceId": null,
+      "date": "2025-01-22",
+      "hours": 1.5,
+      "description": "Project status call with Sarah",
+      "billable": false,
+      "hourlyRate": null,
+      "createdAt": "2025-01-22T11:00:00Z",
+      "updatedAt": "2025-01-22T11:00:00Z"
+    },
+    {
+      "id": "te-008",
+      "userId": "user-002",
+      "projectId": "proj-001",
+      "taskId": "task-003",
+      "invoiceId": null,
+      "date": "2025-01-23",
+      "hours": 4,
+      "description": "CMDB asset discovery setup",
+      "billable": true,
+      "hourlyRate": null,
+      "createdAt": "2025-01-23T12:00:00Z",
+      "updatedAt": "2025-01-23T12:00:00Z"
+    },
+    {
+      "id": "te-009",
+      "userId": "user-002",
+      "projectId": "proj-002",
+      "taskId": "task-005",
+      "invoiceId": null,
+      "date": "2025-01-23",
+      "hours": 2.5,
+      "description": "HR workflow requirements documentation",
+      "billable": true,
+      "hourlyRate": null,
+      "createdAt": "2025-01-23T15:00:00Z",
+      "updatedAt": "2025-01-23T15:00:00Z"
+    },
+    {
+      "id": "te-010",
+      "userId": "user-001",
+      "projectId": "proj-004",
+      "taskId": null,
+      "invoiceId": null,
+      "date": "2025-01-17",
+      "hours": 2,
+      "description": "Initial discovery call with Emily",
+      "billable": true,
+      "hourlyRate": 20000,
+      "createdAt": "2025-01-17T14:00:00Z",
+      "updatedAt": "2025-01-17T14:00:00Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay-001",
+      "invoiceId": "inv-001",
+      "amount": 620000,
+      "paymentDate": "2025-01-28",
+      "paymentMethod": "ach",
+      "reference": "ACH-29384756",
+      "notes": "Full payment received via ACH",
+      "createdBy": "user-001",
+      "createdAt": "2025-01-28T14:30:00Z"
+    }
+  ],
+  "invoiceActivities": [
+    {
+      "id": "inv-act-001",
+      "invoiceId": "inv-001",
+      "type": "created",
+      "occurredAt": "2025-01-05T10:00:00Z",
+      "userId": "user-001",
+      "metadata": null
+    },
+    {
+      "id": "inv-act-002",
+      "invoiceId": "inv-001",
+      "type": "sent",
+      "occurredAt": "2025-01-05T10:15:00Z",
+      "userId": "user-001",
+      "metadata": { "recipientEmail": "mtorres@acme.com" }
+    },
+    {
+      "id": "inv-act-003",
+      "invoiceId": "inv-001",
+      "type": "viewed",
+      "occurredAt": "2025-01-06T09:30:00Z",
+      "userId": null,
+      "metadata": { "ipAddress": "203.0.113.45" }
+    },
+    {
+      "id": "inv-act-004",
+      "invoiceId": "inv-001",
+      "type": "paid",
+      "occurredAt": "2025-01-28T14:30:00Z",
+      "userId": "user-001",
+      "metadata": { "paymentId": "pay-001" }
+    },
+    {
+      "id": "inv-act-005",
+      "invoiceId": "inv-002",
+      "type": "created",
+      "occurredAt": "2025-01-15T09:00:00Z",
+      "userId": "user-001",
+      "metadata": null
+    },
+    {
+      "id": "inv-act-006",
+      "invoiceId": "inv-002",
+      "type": "sent",
+      "occurredAt": "2025-01-15T09:30:00Z",
+      "userId": "user-001",
+      "metadata": { "recipientEmail": "kobrien@initech.com" }
+    },
+    {
+      "id": "inv-act-007",
+      "invoiceId": "inv-004",
+      "type": "reminder_sent",
+      "occurredAt": "2025-01-20T09:00:00Z",
+      "userId": "user-001",
+      "metadata": { "recipientEmail": "kobrien@initech.com", "daysPastDue": 5 }
+    }
+  ],
+  "billingSettings": {
+    "defaultCurrency": "USD",
+    "defaultPaymentTerms": "net_30",
+    "defaultHourlyRate": 15000,
+    "invoiceNumberFormat": "INV-{YYYY}-{###}",
+    "nextInvoiceNumber": 4,
+    "taxRate": 0,
+    "organization": {
+      "name": "YourCo Consulting",
+      "address": "123 Main Street, San Francisco, CA 94102",
+      "email": "billing@yourco.com",
+      "phone": "+1 (555) 000-0000",
+      "logoUrl": null
+    }
+  },
+  "projectBillingStatus": [
+    {
+      "projectId": "proj-001",
+      "projectName": "EasyVista ITSM Implementation",
+      "budget": 14500000,
+      "invoiced": 847500,
+      "uninvoiced": 232500,
+      "utilizationPercentage": 7.4
+    },
+    {
+      "projectId": "proj-002",
+      "projectName": "HR Self-Service Portal",
+      "budget": 5500000,
+      "invoiced": 412500,
+      "uninvoiced": 120000,
+      "utilizationPercentage": 9.7
+    },
+    {
+      "projectId": "proj-003",
+      "projectName": "Q2 Optimization Sprint",
+      "budget": 2500000,
+      "invoiced": 260000,
+      "uninvoiced": 45000,
+      "utilizationPercentage": 12.2
+    },
+    {
+      "projectId": "proj-004",
+      "projectName": "Manufacturing Floor Assessment",
+      "budget": 1500000,
+      "invoiced": 0,
+      "uninvoiced": 40000,
+      "utilizationPercentage": 2.7
+    },
+    {
+      "projectId": "proj-005",
+      "projectName": "IT Service Desk Pilot",
+      "budget": 3000000,
+      "invoiced": 375000,
+      "uninvoiced": 0,
+      "utilizationPercentage": 12.5
+    }
+  ],
+  "summarySnapshot": {
+    "generatedAt": "2025-01-23T08:00:00Z",
+    "invoices": {
+      "totalOutstanding": 787500,
+      "totalOverdue": 375000,
+      "paidThisMonth": 620000,
+      "draftCount": 1,
+      "sentCount": 1,
+      "overdueCount": 1
+    },
+    "timeEntries": {
+      "hoursThisWeek": 30,
+      "hoursTarget": 40,
+      "billableHours": 28.5,
+      "billablePercentage": 95,
+      "uninvoicedHours": 34,
+      "uninvoicedValue": 510000
+    }
+  }
+}
