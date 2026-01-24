@@ -1,0 +1,785 @@
+{
+  "_meta": {
+    "description": "Sample data for Tasks section - cross-project task management views",
+    "models": {
+      "tasks": "Core task entity (also in projects/data.json, enriched here with context)",
+      "taskComments": "Comments/discussion on tasks",
+      "taskActivities": "Audit log of task changes",
+      "timeEntries": "Time logged against tasks (also in projects/data.json)"
+    },
+    "relationships": [
+      "Task → Project (projectId)",
+      "Task → Phase (phaseId)",
+      "Task → User (assignedTo)",
+      "Task → Stakeholders (stakeholderIds[])",
+      "TaskComment → Task (taskId)",
+      "TaskComment → User (userId)",
+      "TaskActivity → Task (taskId)",
+      "TaskActivity → User (userId)",
+      "TimeEntry → Task (taskId)",
+      "TimeEntry → User (userId)"
+    ],
+    "crossReferences": {
+      "projects": "product/sections/projects/data.json",
+      "clients": "product/sections/clients/data.json",
+      "stakeholders": "client stakeholders from clients/data.json"
+    }
+  },
+  "tasks": [
+    {
+      "id": "task-001",
+      "projectId": "proj-001",
+      "phaseId": "phase-001",
+      "assignedTo": "user-001",
+      "title": "Stakeholder Interviews",
+      "description": "Conduct initial discovery interviews with key stakeholders to understand current pain points and desired outcomes.",
+      "status": "done",
+      "priority": "high",
+      "effort": "medium",
+      "dueDate": "2025-04-10",
+      "estimatedHours": 8,
+      "actualHours": 10.5,
+      "isMilestone": false,
+      "isCritical": false,
+      "stakeholderIds": ["sh-001", "sh-002"],
+      "createdAt": "2025-04-01T09:00:00Z",
+      "updatedAt": "2025-04-10T16:30:00Z"
+    },
+    {
+      "id": "task-002",
+      "projectId": "proj-001",
+      "phaseId": "phase-001",
+      "assignedTo": "user-001",
+      "title": "Current State Documentation",
+      "description": "Document existing ITSM processes, tools, and integration points. Create process flow diagrams.",
+      "status": "done",
+      "priority": "high",
+      "effort": "heavy",
+      "dueDate": "2025-04-15",
+      "estimatedHours": 16,
+      "actualHours": 14,
+      "isMilestone": false,
+      "isCritical": false,
+      "stakeholderIds": ["sh-003"],
+      "createdAt": "2025-04-01T09:00:00Z",
+      "updatedAt": "2025-04-14T11:00:00Z"
+    },
+    {
+      "id": "task-003",
+      "projectId": "proj-001",
+      "phaseId": "phase-001",
+      "assignedTo": "user-002",
+      "title": "Technical Architecture Review",
+      "description": "Review current IT infrastructure and identify integration requirements for EasyVista deployment.",
+      "status": "done",
+      "priority": "high",
+      "effort": "medium",
+      "dueDate": "2025-04-18",
+      "estimatedHours": 12,
+      "actualHours": 11,
+      "isMilestone": false,
+      "isCritical": true,
+      "stakeholderIds": ["sh-003"],
+      "createdAt": "2025-04-01T09:00:00Z",
+      "updatedAt": "2025-04-17T14:00:00Z"
+    },
+    {
+      "id": "task-004",
+      "projectId": "proj-001",
+      "phaseId": "phase-001",
+      "assignedTo": "user-001",
+      "title": "Discovery Phase Sign-off",
+      "description": "Present discovery findings to executive sponsors and obtain sign-off to proceed to Setup phase.",
+      "status": "done",
+      "priority": "critical",
+      "effort": "light",
+      "dueDate": "2025-04-25",
+      "estimatedHours": 4,
+      "actualHours": 3,
+      "isMilestone": true,
+      "isCritical": true,
+      "stakeholderIds": ["sh-001", "sh-002"],
+      "createdAt": "2025-04-01T09:00:00Z",
+      "updatedAt": "2025-04-24T17:00:00Z"
+    },
+    {
+      "id": "task-005",
+      "projectId": "proj-001",
+      "phaseId": "phase-002",
+      "assignedTo": "user-002",
+      "title": "Environment Provisioning",
+      "description": "Provision development and staging environments in EasyVista cloud. Configure initial security policies.",
+      "status": "done",
+      "priority": "high",
+      "effort": "medium",
+      "dueDate": "2025-05-05",
+      "estimatedHours": 8,
+      "actualHours": 6,
+      "isMilestone": false,
+      "isCritical": true,
+      "stakeholderIds": [],
+      "createdAt": "2025-04-26T09:00:00Z",
+      "updatedAt": "2025-05-03T15:00:00Z"
+    },
+    {
+      "id": "task-006",
+      "projectId": "proj-001",
+      "phaseId": "phase-002",
+      "assignedTo": "user-002",
+      "title": "AD Integration Setup",
+      "description": "Configure Active Directory integration for single sign-on. Test user synchronization.",
+      "status": "in_progress",
+      "priority": "high",
+      "effort": "heavy",
+      "dueDate": "2025-05-15",
+      "estimatedHours": 16,
+      "actualHours": 8,
+      "isMilestone": false,
+      "isCritical": true,
+      "stakeholderIds": ["sh-003"],
+      "createdAt": "2025-04-26T09:00:00Z",
+      "updatedAt": "2025-05-10T11:00:00Z"
+    },
+    {
+      "id": "task-007",
+      "projectId": "proj-001",
+      "phaseId": "phase-003",
+      "assignedTo": "user-001",
+      "title": "Incident Management Workflow",
+      "description": "Configure incident management workflows including categorization, prioritization, and escalation rules.",
+      "status": "backlog",
+      "priority": "high",
+      "effort": "heavy",
+      "dueDate": "2025-06-01",
+      "estimatedHours": 24,
+      "actualHours": 0,
+      "isMilestone": false,
+      "isCritical": false,
+      "stakeholderIds": ["sh-001"],
+      "createdAt": "2025-04-26T09:00:00Z",
+      "updatedAt": "2025-04-26T09:00:00Z"
+    },
+    {
+      "id": "task-008",
+      "projectId": "proj-001",
+      "phaseId": "phase-003",
+      "assignedTo": "user-001",
+      "title": "Service Catalog Design",
+      "description": "Design and configure service catalog with request forms, approval workflows, and fulfillment rules.",
+      "status": "backlog",
+      "priority": "medium",
+      "effort": "heavy",
+      "dueDate": "2025-06-15",
+      "estimatedHours": 32,
+      "actualHours": 0,
+      "isMilestone": false,
+      "isCritical": false,
+      "stakeholderIds": ["sh-001", "sh-003"],
+      "createdAt": "2025-04-26T09:00:00Z",
+      "updatedAt": "2025-04-26T09:00:00Z"
+    },
+    {
+      "id": "task-009",
+      "projectId": "proj-002",
+      "phaseId": "phase-006",
+      "assignedTo": "user-001",
+      "title": "Requirements Gathering",
+      "description": "Gather detailed requirements for HR self-service portal including employee directory, PTO requests, and benefits enrollment.",
+      "status": "in_progress",
+      "priority": "high",
+      "effort": "medium",
+      "dueDate": "2025-05-20",
+      "estimatedHours": 12,
+      "actualHours": 4,
+      "isMilestone": false,
+      "isCritical": false,
+      "stakeholderIds": ["sh-006"],
+      "createdAt": "2025-05-01T09:00:00Z",
+      "updatedAt": "2025-05-12T14:00:00Z"
+    },
+    {
+      "id": "task-010",
+      "projectId": "proj-002",
+      "phaseId": "phase-006",
+      "assignedTo": "user-002",
+      "title": "UI/UX Design Review",
+      "description": "Review proposed wireframes and design mockups with HR stakeholders. Gather feedback for iteration.",
+      "status": "review",
+      "priority": "medium",
+      "effort": "light",
+      "dueDate": "2025-05-25",
+      "estimatedHours": 6,
+      "actualHours": 4,
+      "isMilestone": false,
+      "isCritical": false,
+      "stakeholderIds": ["sh-006"],
+      "createdAt": "2025-05-01T09:00:00Z",
+      "updatedAt": "2025-05-18T16:00:00Z"
+    },
+    {
+      "id": "task-011",
+      "projectId": "proj-003",
+      "phaseId": "phase-009",
+      "assignedTo": "user-001",
+      "title": "Performance Audit",
+      "description": "Conduct comprehensive performance audit of existing EasyVista implementation. Identify optimization opportunities.",
+      "status": "in_progress",
+      "priority": "high",
+      "effort": "medium",
+      "dueDate": "2025-05-18",
+      "estimatedHours": 8,
+      "actualHours": 3,
+      "isMilestone": false,
+      "isCritical": false,
+      "stakeholderIds": ["sh-003"],
+      "createdAt": "2025-05-05T09:00:00Z",
+      "updatedAt": "2025-05-15T10:00:00Z"
+    },
+    {
+      "id": "task-012",
+      "projectId": "proj-003",
+      "phaseId": "phase-009",
+      "assignedTo": "user-002",
+      "title": "Report Optimization",
+      "description": "Optimize existing reports for faster load times. Implement caching where appropriate.",
+      "status": "backlog",
+      "priority": "medium",
+      "effort": "medium",
+      "dueDate": "2025-05-28",
+      "estimatedHours": 10,
+      "actualHours": 0,
+      "isMilestone": false,
+      "isCritical": false,
+      "stakeholderIds": [],
+      "createdAt": "2025-05-05T09:00:00Z",
+      "updatedAt": "2025-05-05T09:00:00Z"
+    }
+  ],
+  "taskComments": [
+    {
+      "id": "comment-001",
+      "taskId": "task-001",
+      "userId": "user-001",
+      "content": "Completed interviews with Sarah and Michael. Key themes: need for faster incident resolution, better self-service options, and mobile access.",
+      "createdAt": "2025-04-08T14:30:00Z",
+      "updatedAt": "2025-04-08T14:30:00Z"
+    },
+    {
+      "id": "comment-002",
+      "taskId": "task-001",
+      "userId": "user-002",
+      "content": "Added notes from Jennifer's technical perspective. She highlighted integration concerns with legacy ticketing system.",
+      "createdAt": "2025-04-09T11:00:00Z",
+      "updatedAt": "2025-04-09T11:00:00Z"
+    },
+    {
+      "id": "comment-003",
+      "taskId": "task-004",
+      "userId": "user-001",
+      "content": "Sign-off meeting scheduled for April 24th at 2pm. Michael confirmed attendance.",
+      "createdAt": "2025-04-20T09:00:00Z",
+      "updatedAt": "2025-04-20T09:00:00Z"
+    },
+    {
+      "id": "comment-004",
+      "taskId": "task-004",
+      "userId": "user-001",
+      "content": "Sign-off completed. Michael approved proceeding to Setup phase. Sarah requested weekly status updates during implementation.",
+      "createdAt": "2025-04-24T17:00:00Z",
+      "updatedAt": "2025-04-24T17:00:00Z"
+    },
+    {
+      "id": "comment-005",
+      "taskId": "task-006",
+      "userId": "user-002",
+      "content": "Hit a snag with nested OU synchronization. Working with Jennifer to resolve - may need to adjust sync schedule.",
+      "createdAt": "2025-05-08T16:00:00Z",
+      "updatedAt": "2025-05-08T16:00:00Z"
+    },
+    {
+      "id": "comment-006",
+      "taskId": "task-009",
+      "userId": "user-001",
+      "content": "Initial requirements session with Amanda went well. She has clear vision for employee self-service. Following up with detailed user stories.",
+      "createdAt": "2025-05-10T15:00:00Z",
+      "updatedAt": "2025-05-10T15:00:00Z"
+    },
+    {
+      "id": "comment-007",
+      "taskId": "task-010",
+      "userId": "user-002",
+      "content": "Design feedback received. Main concerns: accessibility for mobile users and integration with existing benefits portal. Updating mockups.",
+      "createdAt": "2025-05-18T16:00:00Z",
+      "updatedAt": "2025-05-18T16:00:00Z"
+    },
+    {
+      "id": "comment-008",
+      "taskId": "task-011",
+      "userId": "user-001",
+      "content": "Initial audit shows report generation is main bottleneck. Average dashboard load time is 8 seconds - targeting under 2 seconds.",
+      "createdAt": "2025-05-15T10:00:00Z",
+      "updatedAt": "2025-05-15T10:00:00Z"
+    }
+  ],
+  "taskActivities": [
+    {
+      "id": "activity-001",
+      "taskId": "task-001",
+      "type": "status_change",
+      "subject": "Status changed",
+      "description": null,
+      "previousValue": "in_progress",
+      "newValue": "done",
+      "userId": "user-001",
+      "createdAt": "2025-04-10T16:30:00Z"
+    },
+    {
+      "id": "activity-002",
+      "taskId": "task-002",
+      "type": "status_change",
+      "subject": "Status changed",
+      "description": null,
+      "previousValue": "in_progress",
+      "newValue": "done",
+      "userId": "user-001",
+      "createdAt": "2025-04-14T11:00:00Z"
+    },
+    {
+      "id": "activity-003",
+      "taskId": "task-003",
+      "type": "status_change",
+      "subject": "Status changed",
+      "description": null,
+      "previousValue": "in_progress",
+      "newValue": "done",
+      "userId": "user-002",
+      "createdAt": "2025-04-17T14:00:00Z"
+    },
+    {
+      "id": "activity-004",
+      "taskId": "task-004",
+      "type": "status_change",
+      "subject": "Milestone completed",
+      "description": "Discovery Phase Sign-off milestone achieved",
+      "previousValue": "in_progress",
+      "newValue": "done",
+      "userId": "user-001",
+      "createdAt": "2025-04-24T17:00:00Z"
+    },
+    {
+      "id": "activity-005",
+      "taskId": "task-005",
+      "type": "status_change",
+      "subject": "Status changed",
+      "description": null,
+      "previousValue": "in_progress",
+      "newValue": "done",
+      "userId": "user-002",
+      "createdAt": "2025-05-03T15:00:00Z"
+    },
+    {
+      "id": "activity-006",
+      "taskId": "task-006",
+      "type": "stakeholder_added",
+      "subject": "Stakeholder added",
+      "description": "Jennifer Wu added for technical consultation",
+      "previousValue": null,
+      "newValue": "sh-003",
+      "userId": "user-002",
+      "createdAt": "2025-05-06T10:00:00Z"
+    },
+    {
+      "id": "activity-007",
+      "taskId": "task-006",
+      "type": "time_logged",
+      "subject": "Time logged",
+      "description": "4 hours logged for AD connector testing",
+      "previousValue": "4",
+      "newValue": "8",
+      "userId": "user-002",
+      "createdAt": "2025-05-10T11:00:00Z"
+    },
+    {
+      "id": "activity-008",
+      "taskId": "task-009",
+      "type": "assignment_change",
+      "subject": "Assignee changed",
+      "description": null,
+      "previousValue": null,
+      "newValue": "user-001",
+      "userId": "user-001",
+      "createdAt": "2025-05-01T09:00:00Z"
+    },
+    {
+      "id": "activity-009",
+      "taskId": "task-009",
+      "type": "status_change",
+      "subject": "Status changed",
+      "description": null,
+      "previousValue": "backlog",
+      "newValue": "in_progress",
+      "userId": "user-001",
+      "createdAt": "2025-05-08T09:00:00Z"
+    },
+    {
+      "id": "activity-010",
+      "taskId": "task-010",
+      "type": "status_change",
+      "subject": "Status changed",
+      "description": null,
+      "previousValue": "in_progress",
+      "newValue": "review",
+      "userId": "user-002",
+      "createdAt": "2025-05-18T16:00:00Z"
+    },
+    {
+      "id": "activity-011",
+      "taskId": "task-011",
+      "type": "priority_change",
+      "subject": "Priority changed",
+      "description": "Escalated to address client concerns",
+      "previousValue": "medium",
+      "newValue": "high",
+      "userId": "user-001",
+      "createdAt": "2025-05-12T09:00:00Z"
+    },
+    {
+      "id": "activity-012",
+      "taskId": "task-011",
+      "type": "comment",
+      "subject": "Comment added",
+      "description": "Initial audit shows report generation is main bottleneck.",
+      "previousValue": null,
+      "newValue": null,
+      "userId": "user-001",
+      "createdAt": "2025-05-15T10:00:00Z"
+    }
+  ],
+  "timeEntries": [
+    {
+      "id": "time-001",
+      "userId": "user-001",
+      "projectId": "proj-001",
+      "taskId": "task-001",
+      "invoiceId": null,
+      "hours": 4,
+      "date": "2025-04-05",
+      "description": "Stakeholder interview preparation and scheduling",
+      "billable": true,
+      "createdAt": "2025-04-05T17:00:00Z"
+    },
+    {
+      "id": "time-002",
+      "userId": "user-001",
+      "projectId": "proj-001",
+      "taskId": "task-001",
+      "invoiceId": null,
+      "hours": 3.5,
+      "date": "2025-04-08",
+      "description": "Interview with Sarah Chen - Champion perspectives",
+      "billable": true,
+      "createdAt": "2025-04-08T17:00:00Z"
+    },
+    {
+      "id": "time-003",
+      "userId": "user-001",
+      "projectId": "proj-001",
+      "taskId": "task-001",
+      "invoiceId": null,
+      "hours": 3,
+      "date": "2025-04-09",
+      "description": "Interview with Michael Torres - Budget and timeline discussion",
+      "billable": true,
+      "createdAt": "2025-04-09T17:00:00Z"
+    },
+    {
+      "id": "time-004",
+      "userId": "user-001",
+      "projectId": "proj-001",
+      "taskId": "task-002",
+      "invoiceId": null,
+      "hours": 6,
+      "date": "2025-04-11",
+      "description": "Current state process documentation",
+      "billable": true,
+      "createdAt": "2025-04-11T17:00:00Z"
+    },
+    {
+      "id": "time-005",
+      "userId": "user-001",
+      "projectId": "proj-001",
+      "taskId": "task-002",
+      "invoiceId": null,
+      "hours": 8,
+      "date": "2025-04-12",
+      "description": "Process flow diagrams and documentation finalization",
+      "billable": true,
+      "createdAt": "2025-04-12T17:00:00Z"
+    },
+    {
+      "id": "time-006",
+      "userId": "user-002",
+      "projectId": "proj-001",
+      "taskId": "task-003",
+      "invoiceId": null,
+      "hours": 5,
+      "date": "2025-04-15",
+      "description": "Infrastructure review with IT team",
+      "billable": true,
+      "createdAt": "2025-04-15T17:00:00Z"
+    },
+    {
+      "id": "time-007",
+      "userId": "user-002",
+      "projectId": "proj-001",
+      "taskId": "task-003",
+      "invoiceId": null,
+      "hours": 6,
+      "date": "2025-04-16",
+      "description": "Integration requirements documentation",
+      "billable": true,
+      "createdAt": "2025-04-16T17:00:00Z"
+    },
+    {
+      "id": "time-008",
+      "userId": "user-001",
+      "projectId": "proj-001",
+      "taskId": "task-004",
+      "invoiceId": null,
+      "hours": 3,
+      "date": "2025-04-24",
+      "description": "Discovery sign-off presentation and meeting",
+      "billable": true,
+      "createdAt": "2025-04-24T18:00:00Z"
+    },
+    {
+      "id": "time-009",
+      "userId": "user-002",
+      "projectId": "proj-001",
+      "taskId": "task-005",
+      "invoiceId": null,
+      "hours": 6,
+      "date": "2025-05-02",
+      "description": "Environment provisioning and initial configuration",
+      "billable": true,
+      "createdAt": "2025-05-02T17:00:00Z"
+    },
+    {
+      "id": "time-010",
+      "userId": "user-002",
+      "projectId": "proj-001",
+      "taskId": "task-006",
+      "invoiceId": null,
+      "hours": 4,
+      "date": "2025-05-06",
+      "description": "AD connector installation and basic config",
+      "billable": true,
+      "createdAt": "2025-05-06T17:00:00Z"
+    },
+    {
+      "id": "time-011",
+      "userId": "user-002",
+      "projectId": "proj-001",
+      "taskId": "task-006",
+      "invoiceId": null,
+      "hours": 4,
+      "date": "2025-05-10",
+      "description": "OU sync troubleshooting",
+      "billable": true,
+      "createdAt": "2025-05-10T17:00:00Z"
+    },
+    {
+      "id": "time-012",
+      "userId": "user-001",
+      "projectId": "proj-002",
+      "taskId": "task-009",
+      "invoiceId": null,
+      "hours": 4,
+      "date": "2025-05-10",
+      "description": "Initial requirements session with Amanda Foster",
+      "billable": true,
+      "createdAt": "2025-05-10T17:00:00Z"
+    },
+    {
+      "id": "time-013",
+      "userId": "user-002",
+      "projectId": "proj-002",
+      "taskId": "task-010",
+      "invoiceId": null,
+      "hours": 4,
+      "date": "2025-05-17",
+      "description": "Design review meeting and feedback consolidation",
+      "billable": true,
+      "createdAt": "2025-05-17T17:00:00Z"
+    },
+    {
+      "id": "time-014",
+      "userId": "user-001",
+      "projectId": "proj-003",
+      "taskId": "task-011",
+      "invoiceId": null,
+      "hours": 3,
+      "date": "2025-05-15",
+      "description": "Performance profiling and initial analysis",
+      "billable": true,
+      "createdAt": "2025-05-15T17:00:00Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "user-001",
+      "email": "alex.rivera@yourco.com",
+      "name": "Alex Rivera",
+      "avatarUrl": null,
+      "role": "admin"
+    },
+    {
+      "id": "user-002",
+      "email": "jamie.chen@yourco.com",
+      "name": "Jamie Chen",
+      "avatarUrl": null,
+      "role": "consultant"
+    }
+  ],
+  "stakeholders": [
+    {
+      "id": "sh-001",
+      "clientId": "client-001",
+      "name": "Sarah Chen",
+      "email": "sarah.chen@acme.com",
+      "phone": "+1 (555) 123-4567",
+      "title": "VP of IT Operations",
+      "roleTags": ["champion"],
+      "engagementLevel": "high"
+    },
+    {
+      "id": "sh-002",
+      "clientId": "client-001",
+      "name": "Michael Torres",
+      "email": "m.torres@acme.com",
+      "phone": "+1 (555) 123-4568",
+      "title": "CIO",
+      "roleTags": ["economic_buyer"],
+      "engagementLevel": "medium"
+    },
+    {
+      "id": "sh-003",
+      "clientId": "client-001",
+      "name": "Jennifer Wu",
+      "email": "j.wu@acme.com",
+      "phone": "+1 (555) 123-4569",
+      "title": "Director of IT Infrastructure",
+      "roleTags": ["technical_evaluator"],
+      "engagementLevel": "high"
+    },
+    {
+      "id": "sh-006",
+      "clientId": "client-003",
+      "name": "Amanda Foster",
+      "email": "amanda.foster@initech.com",
+      "phone": "+1 (555) 789-0123",
+      "title": "VP of Human Resources",
+      "roleTags": ["champion", "economic_buyer"],
+      "engagementLevel": "high"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-001",
+      "clientId": "client-001",
+      "name": "EasyVista ITSM Implementation",
+      "status": "active"
+    },
+    {
+      "id": "proj-002",
+      "clientId": "client-003",
+      "name": "HR Self-Service Portal",
+      "status": "planning"
+    },
+    {
+      "id": "proj-003",
+      "clientId": "client-001",
+      "name": "Q2 Optimization Sprint",
+      "status": "active"
+    }
+  ],
+  "phases": [
+    {
+      "id": "phase-001",
+      "projectId": "proj-001",
+      "name": "Discovery",
+      "order": 1,
+      "status": "completed"
+    },
+    {
+      "id": "phase-002",
+      "projectId": "proj-001",
+      "name": "Setup",
+      "order": 2,
+      "status": "active"
+    },
+    {
+      "id": "phase-003",
+      "projectId": "proj-001",
+      "name": "Configuration",
+      "order": 3,
+      "status": "pending"
+    },
+    {
+      "id": "phase-006",
+      "projectId": "proj-002",
+      "name": "Requirements",
+      "order": 1,
+      "status": "active"
+    },
+    {
+      "id": "phase-009",
+      "projectId": "proj-003",
+      "name": "Analysis",
+      "order": 1,
+      "status": "active"
+    }
+  ],
+  "clients": [
+    {
+      "id": "client-001",
+      "name": "Acme Corporation",
+      "status": "active"
+    },
+    {
+      "id": "client-003",
+      "name": "Initech Solutions",
+      "status": "active"
+    }
+  ],
+  "boardConfig": {
+    "columns": [
+      { "status": "backlog", "label": "Backlog", "color": "stone-400", "icon": "inbox" },
+      { "status": "in_progress", "label": "In Progress", "color": "blue-500", "icon": "play" },
+      { "status": "review", "label": "Review", "color": "amber-500", "icon": "eye" },
+      { "status": "done", "label": "Done", "color": "emerald-500", "icon": "check-circle" }
+    ]
+  },
+  "stats": {
+    "total": 12,
+    "byStatus": {
+      "backlog": 3,
+      "in_progress": 4,
+      "review": 1,
+      "done": 4
+    },
+    "byPriority": {
+      "low": 0,
+      "medium": 4,
+      "high": 7,
+      "critical": 1
+    },
+    "overdue": 0,
+    "dueSoon": 3,
+    "unassigned": 0,
+    "milestones": 1,
+    "criticalPath": 3,
+    "totalEstimatedHours": 156,
+    "totalActualHours": 63.5
+  }
+}
