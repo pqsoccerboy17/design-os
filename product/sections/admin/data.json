@@ -1,0 +1,472 @@
+{
+  "_meta": {
+    "description": "Sample data for Security & Admin section - users, permissions, audit logs, settings",
+    "models": {
+      "users": "Team members with roles and authentication status",
+      "clientAssignments": "User-to-client access mappings with lead/member roles",
+      "auditLogs": "Tracked system activities for compliance",
+      "sessions": "Active user sessions",
+      "invitations": "Pending user invitations",
+      "integrations": "Connected third-party services"
+    },
+    "crossReferences": {
+      "clients": "product/sections/clients/data.json",
+      "projects": "product/sections/projects/data.json"
+    }
+  },
+  "users": [
+    {
+      "id": "user-001",
+      "email": "alex@yourco.com",
+      "name": "Alex Rivera",
+      "role": "admin",
+      "status": "active",
+      "avatarUrl": null,
+      "mfaStatus": "enabled",
+      "lastPasswordChange": "2024-12-01T10:00:00Z",
+      "lastLoginAt": "2025-01-23T09:15:00Z",
+      "loginCount30Days": 24,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2025-01-23T09:15:00Z"
+    },
+    {
+      "id": "user-002",
+      "email": "jamie@yourco.com",
+      "name": "Jamie Chen",
+      "role": "consultant",
+      "status": "active",
+      "avatarUrl": null,
+      "mfaStatus": "enabled",
+      "lastPasswordChange": "2024-11-15T14:00:00Z",
+      "lastLoginAt": "2025-01-23T08:30:00Z",
+      "loginCount30Days": 21,
+      "createdAt": "2024-02-15T09:00:00Z",
+      "updatedAt": "2025-01-23T08:30:00Z"
+    },
+    {
+      "id": "user-003",
+      "email": "morgan@yourco.com",
+      "name": "Morgan Smith",
+      "role": "consultant",
+      "status": "active",
+      "avatarUrl": null,
+      "mfaStatus": "disabled",
+      "lastPasswordChange": "2024-10-20T11:00:00Z",
+      "lastLoginAt": "2025-01-22T16:45:00Z",
+      "loginCount30Days": 18,
+      "createdAt": "2024-06-01T10:00:00Z",
+      "updatedAt": "2025-01-22T16:45:00Z"
+    },
+    {
+      "id": "user-004",
+      "email": "taylor@yourco.com",
+      "name": "Taylor Nguyen",
+      "role": "viewer",
+      "status": "pending",
+      "avatarUrl": null,
+      "mfaStatus": "disabled",
+      "lastPasswordChange": null,
+      "lastLoginAt": null,
+      "loginCount30Days": 0,
+      "createdAt": "2025-01-20T14:00:00Z",
+      "updatedAt": "2025-01-20T14:00:00Z"
+    }
+  ],
+  "clientAssignments": [
+    {
+      "id": "assign-001",
+      "userId": "user-001",
+      "clientId": "client-001",
+      "role": "lead",
+      "assignedAt": "2024-01-15T10:00:00Z",
+      "assignedBy": "user-001"
+    },
+    {
+      "id": "assign-002",
+      "userId": "user-001",
+      "clientId": "client-002",
+      "role": "member",
+      "assignedAt": "2024-02-20T09:00:00Z",
+      "assignedBy": "user-001"
+    },
+    {
+      "id": "assign-003",
+      "userId": "user-001",
+      "clientId": "client-003",
+      "role": "member",
+      "assignedAt": "2023-11-05T08:00:00Z",
+      "assignedBy": "user-001"
+    },
+    {
+      "id": "assign-004",
+      "userId": "user-002",
+      "clientId": "client-001",
+      "role": "member",
+      "assignedAt": "2024-03-01T10:00:00Z",
+      "assignedBy": "user-001"
+    },
+    {
+      "id": "assign-005",
+      "userId": "user-002",
+      "clientId": "client-003",
+      "role": "lead",
+      "assignedAt": "2024-01-10T09:00:00Z",
+      "assignedBy": "user-001"
+    },
+    {
+      "id": "assign-006",
+      "userId": "user-002",
+      "clientId": "client-004",
+      "role": "member",
+      "assignedAt": "2025-01-17T13:00:00Z",
+      "assignedBy": "user-001"
+    },
+    {
+      "id": "assign-007",
+      "userId": "user-003",
+      "clientId": "client-002",
+      "role": "lead",
+      "assignedAt": "2024-06-01T10:00:00Z",
+      "assignedBy": "user-001"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "log-001",
+      "userId": "user-001",
+      "action": "login",
+      "resourceType": "session",
+      "resourceId": "sess-001",
+      "resourceName": null,
+      "changes": null,
+      "ipAddress": "203.0.113.45",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/121",
+      "sessionId": "sess-001",
+      "success": true,
+      "errorMessage": null,
+      "timestamp": "2025-01-23T09:15:00Z"
+    },
+    {
+      "id": "log-002",
+      "userId": "user-002",
+      "action": "login",
+      "resourceType": "session",
+      "resourceId": "sess-002",
+      "resourceName": null,
+      "changes": null,
+      "ipAddress": "198.51.100.22",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/121",
+      "sessionId": "sess-002",
+      "success": true,
+      "errorMessage": null,
+      "timestamp": "2025-01-23T08:30:00Z"
+    },
+    {
+      "id": "log-003",
+      "userId": "user-001",
+      "action": "update",
+      "resourceType": "client",
+      "resourceId": "client-001",
+      "resourceName": "Acme Corporation",
+      "changes": {
+        "before": { "status": "prospect", "budget": 100000 },
+        "after": { "status": "active", "budget": 150000 }
+      },
+      "ipAddress": "203.0.113.45",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/121",
+      "sessionId": "sess-001",
+      "success": true,
+      "errorMessage": null,
+      "timestamp": "2025-01-22T14:30:00Z"
+    },
+    {
+      "id": "log-004",
+      "userId": "user-002",
+      "action": "create",
+      "resourceType": "time_entry",
+      "resourceId": "te-001",
+      "resourceName": "4 hours - AD Integration",
+      "changes": null,
+      "ipAddress": "198.51.100.22",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/121",
+      "sessionId": "sess-002",
+      "success": true,
+      "errorMessage": null,
+      "timestamp": "2025-01-20T17:00:00Z"
+    },
+    {
+      "id": "log-005",
+      "userId": "user-001",
+      "action": "create",
+      "resourceType": "invoice",
+      "resourceId": "inv-003",
+      "resourceName": "INV-2025-003",
+      "changes": null,
+      "ipAddress": "203.0.113.45",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/121",
+      "sessionId": "sess-001",
+      "success": true,
+      "errorMessage": null,
+      "timestamp": "2025-01-23T08:00:00Z"
+    },
+    {
+      "id": "log-006",
+      "userId": "user-001",
+      "action": "invite",
+      "resourceType": "user",
+      "resourceId": "user-004",
+      "resourceName": "Taylor Nguyen",
+      "changes": null,
+      "ipAddress": "203.0.113.45",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/121",
+      "sessionId": "sess-001",
+      "success": true,
+      "errorMessage": null,
+      "timestamp": "2025-01-20T14:00:00Z"
+    },
+    {
+      "id": "log-007",
+      "userId": null,
+      "action": "login",
+      "resourceType": "session",
+      "resourceId": null,
+      "resourceName": null,
+      "changes": null,
+      "ipAddress": "192.0.2.100",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/122",
+      "sessionId": null,
+      "success": false,
+      "errorMessage": "Invalid email or password",
+      "timestamp": "2025-01-21T03:45:00Z"
+    },
+    {
+      "id": "log-008",
+      "userId": "user-001",
+      "action": "export",
+      "resourceType": "audit_log",
+      "resourceId": null,
+      "resourceName": "Audit logs Jan 1-15",
+      "changes": null,
+      "ipAddress": "203.0.113.45",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/121",
+      "sessionId": "sess-001",
+      "success": true,
+      "errorMessage": null,
+      "timestamp": "2025-01-15T16:00:00Z"
+    },
+    {
+      "id": "log-009",
+      "userId": "user-002",
+      "action": "update",
+      "resourceType": "task",
+      "resourceId": "task-006",
+      "resourceName": "UI/UX Design Review",
+      "changes": {
+        "before": { "status": "in_progress" },
+        "after": { "status": "review" }
+      },
+      "ipAddress": "198.51.100.22",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/121",
+      "sessionId": "sess-002",
+      "success": true,
+      "errorMessage": null,
+      "timestamp": "2025-01-22T16:00:00Z"
+    },
+    {
+      "id": "log-010",
+      "userId": "user-003",
+      "action": "login",
+      "resourceType": "session",
+      "resourceId": "sess-003",
+      "resourceName": null,
+      "changes": null,
+      "ipAddress": "172.16.0.50",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/17.2",
+      "sessionId": "sess-003",
+      "success": true,
+      "errorMessage": null,
+      "timestamp": "2025-01-22T16:45:00Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "sess-001",
+      "userId": "user-001",
+      "ipAddress": "203.0.113.45",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/121",
+      "createdAt": "2025-01-23T09:15:00Z",
+      "expiresAt": "2025-01-24T09:15:00Z",
+      "lastActivityAt": "2025-01-23T10:30:00Z",
+      "isCurrent": true
+    },
+    {
+      "id": "sess-002",
+      "userId": "user-002",
+      "ipAddress": "198.51.100.22",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/121",
+      "createdAt": "2025-01-23T08:30:00Z",
+      "expiresAt": "2025-01-24T08:30:00Z",
+      "lastActivityAt": "2025-01-23T10:15:00Z",
+      "isCurrent": true
+    },
+    {
+      "id": "sess-003",
+      "userId": "user-003",
+      "ipAddress": "172.16.0.50",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/17.2",
+      "createdAt": "2025-01-22T16:45:00Z",
+      "expiresAt": "2025-01-23T16:45:00Z",
+      "lastActivityAt": "2025-01-22T17:30:00Z",
+      "isCurrent": false
+    }
+  ],
+  "invitations": [
+    {
+      "id": "invite-001",
+      "email": "taylor@yourco.com",
+      "name": "Taylor Nguyen",
+      "role": "viewer",
+      "clientIds": ["client-001", "client-003"],
+      "invitedBy": "user-001",
+      "invitedAt": "2025-01-20T14:00:00Z",
+      "expiresAt": "2025-01-27T14:00:00Z",
+      "acceptedAt": null
+    }
+  ],
+  "integrations": [
+    {
+      "id": "int-001",
+      "type": "notion",
+      "name": "Notion",
+      "status": "connected",
+      "connectedAt": "2024-12-01T10:00:00Z",
+      "lastSyncAt": "2025-01-23T10:25:00Z",
+      "config": {
+        "syncProjects": true,
+        "syncTasks": true,
+        "workspaceId": "notion-ws-123"
+      },
+      "error": null
+    },
+    {
+      "id": "int-002",
+      "type": "google_calendar",
+      "name": "Google Calendar",
+      "status": "disconnected",
+      "connectedAt": null,
+      "lastSyncAt": null,
+      "config": {},
+      "error": null
+    },
+    {
+      "id": "int-003",
+      "type": "slack",
+      "name": "Slack",
+      "status": "disconnected",
+      "connectedAt": null,
+      "lastSyncAt": null,
+      "config": {},
+      "error": null
+    }
+  ],
+  "dataDeletionRequests": [
+    {
+      "id": "del-001",
+      "resourceType": "client",
+      "resourceId": "client-005",
+      "resourceName": "Umbrella Health",
+      "requestedBy": "user-001",
+      "requestedAt": "2025-01-10T09:00:00Z",
+      "reason": "Client churned, requested data deletion per GDPR",
+      "softDeletedAt": "2025-01-10T09:00:00Z",
+      "permanentDeletionAt": "2025-02-09T09:00:00Z",
+      "status": "pending"
+    }
+  ],
+  "settings": {
+    "organization": {
+      "name": "YourCo Consulting",
+      "logoUrl": null,
+      "timezone": "America/Los_Angeles",
+      "dateFormat": "MM/DD/YYYY",
+      "currency": "USD",
+      "defaultHourlyRate": 15000,
+      "invoicePaymentTerms": "net_30",
+      "timeEntryRounding": 15,
+      "weekStartsOn": "monday"
+    },
+    "security": {
+      "mfaRequiredForAdmins": true,
+      "mfaRequiredForAll": false,
+      "sessionTimeoutHours": 24,
+      "maxSessionsPerUser": 3,
+      "rememberMeDays": 30,
+      "passwordMinLength": 12,
+      "passwordRequireUppercase": true,
+      "passwordRequireNumber": true,
+      "passwordRequireSpecial": false,
+      "passwordHistoryCount": 5,
+      "auditLogRetentionDays": 90,
+      "logReadAccess": false,
+      "logPageViews": false
+    },
+    "email": {
+      "sendInvoicesFrom": "billing@yourco.com",
+      "ccAdminOnNewInvoices": false,
+      "ccAdminOnOverdueReminders": true,
+      "replyToAddress": "support@yourco.com"
+    },
+    "dataRetention": {
+      "activeClientData": "indefinite",
+      "churnedClientData": "365_days",
+      "auditLogs": "90_days",
+      "sessionData": "30_days"
+    }
+  },
+  "usage": {
+    "storageUsedBytes": 2254857830,
+    "storageLimitBytes": 10737418240,
+    "apiCallsThisPeriod": 1234,
+    "apiCallsLimit": 10000,
+    "portalViewsThisPeriod": 89
+  },
+  "permissionRules": [
+    { "role": "admin", "resource": "users", "permissions": ["create", "read", "update", "delete"], "condition": "all" },
+    { "role": "admin", "resource": "clients", "permissions": ["create", "read", "update", "delete"], "condition": "all" },
+    { "role": "admin", "resource": "audit_logs", "permissions": ["read"], "condition": "all" },
+    { "role": "admin", "resource": "settings", "permissions": ["create", "read", "update", "delete"], "condition": "all" },
+    { "role": "consultant", "resource": "users", "permissions": ["read"], "condition": "self" },
+    { "role": "consultant", "resource": "clients", "permissions": ["create", "read", "update", "delete"], "condition": "assigned" },
+    { "role": "consultant", "resource": "time_entries", "permissions": ["create", "read", "update", "delete"], "condition": "own" },
+    { "role": "viewer", "resource": "users", "permissions": ["read"], "condition": "self" },
+    { "role": "viewer", "resource": "clients", "permissions": ["read"], "condition": "all" },
+    { "role": "viewer", "resource": "projects", "permissions": ["read"], "condition": "all" },
+    { "role": "client", "resource": "clients", "permissions": ["read"], "condition": "own" },
+    { "role": "client", "resource": "projects", "permissions": ["read"], "condition": "own" }
+  ],
+  "stats": {
+    "users": {
+      "totalUsers": 4,
+      "activeUsers": 3,
+      "pendingInvites": 1,
+      "mfaEnabledPercentage": 67,
+      "byRole": {
+        "admin": 1,
+        "consultant": 2,
+        "viewer": 1,
+        "client": 0
+      }
+    },
+    "auditLogs": {
+      "totalToday": 5,
+      "failedLogins24h": 1,
+      "changesThisWeek": 12,
+      "exportCount30d": 1,
+      "topUsers": [
+        { "userId": "user-001", "name": "Alex Rivera", "actionCount": 45 },
+        { "userId": "user-002", "name": "Jamie Chen", "actionCount": 38 },
+        { "userId": "user-003", "name": "Morgan Smith", "actionCount": 22 }
+      ]
+    }
+  }
+}
