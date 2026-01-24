@@ -206,4 +206,64 @@
       height: 0;
     }
   }
+
+  /* Arc Browser-inspired sidebar utilities */
+  .sidebar-container {
+    will-change: width;
+    transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .arc-transition {
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Peek shadow - left sidebar */
+  .sidebar-peek-shadow {
+    box-shadow: 4px 0 24px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Peek shadow - right sidebar */
+  .sidebar-peek-shadow-right {
+    box-shadow: -4px 0 24px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Dark mode peek shadows */
+  .dark .sidebar-peek-shadow {
+    box-shadow: 4px 0 24px -8px rgba(0, 0, 0, 0.4);
+  }
+
+  .dark .sidebar-peek-shadow-right {
+    box-shadow: -4px 0 24px -8px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Label fade-in animation for sidebar expand/peek */
+  @keyframes label-fade-in {
+    0% {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-label-fade {
+    animation: label-fade-in 200ms ease-out 50ms both;
+  }
+
+  /* Reduced motion support for accessibility (WCAG 2.1) */
+  @media (prefers-reduced-motion: reduce) {
+    .sidebar-container,
+    .arc-transition {
+      transition: none;
+    }
+
+    .animate-label-fade,
+    .animate-fade-in,
+    .animate-collapse-down,
+    .animate-collapse-up {
+      animation: none;
+    }
+  }
 }

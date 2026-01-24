@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { LogOut, Settings, ChevronUp } from 'lucide-react'
 
+type SidebarPosition = 'left' | 'right'
+
 interface User {
   name: string
   avatarUrl?: string
@@ -9,30 +11,43 @@ interface User {
 interface UserMenuProps {
   user?: User
   collapsed: boolean
+  showLabels: boolean
+  sidebarPosition?: SidebarPosition
   onLogout?: () => void
 }
 
-export function UserMenu({ user, collapsed, onLogout }: UserMenuProps) {
+export function UserMenu({
+  user,
+  collapsed,
+  showLabels,
+  sidebarPosition = 'left',
+  onLogout,
+}: UserMenuProps) {
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const initials = user?.name
-    ?.split(' ')
-    .map((n) => n[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase() || '?'
+  const initials =
+    user?.name
+      ?.split(' ')
+      .map((n) => n[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase() || '?'
+
+  const isRight = sidebarPosition === 'right'
 
   return (
     <div className="relative">
       <button
         onClick={() => setMenuOpen(!menuOpen)}
         className={`
-          w-full flex items-center gap-3 p-2 rounded-lg
+          w-full flex items-center gap-3 p-2 rounded-xl
           text-stone-700 dark:text-stone-300
           hover:bg-stone-100 dark:hover:bg-stone-800
-          transition-colors duration-150
-          ${collapsed ? 'justify-center' : ''}
+          arc-transition
+          ${collapsed && !showLabels ? 'justify-center' : ''}
         `}
+        aria-haspopup="true"
+        aria-expanded={menuOpen}
       >
         {/* Avatar */}
         <div className="w-8 h-8 rounded-full bg-stone-300 dark:bg-stone-600 flex items-center justify-center flex-shrink-0">
@@ -49,15 +64,13 @@ export function UserMenu({ user, collapsed, onLogout }: UserMenuProps) {
           )}
         </div>
 
-        {!collapsed && (
+        {showLabels && (
           <>
-            <span className="flex-1 text-left text-sm font-medium truncate">
+            <span className="flex-1 text-left text-sm font-medium truncate animate-label-fade">
               {user?.name || 'User'}
             </span>
             <ChevronUp
-              className={`w-4 h-4 transition-transform duration-200 ${
-                menuOpen ? '' : 'rotate-180'
-              }`}
+              className={`w-4 h-4 arc-transition ${menuOpen ? '' : 'rotate-180'}`}
             />
           </>
         )}
@@ -68,16 +81,18 @@ export function UserMenu({ user, collapsed, onLogout }: UserMenuProps) {
         <div
           className={`
             absolute bottom-full mb-2
-            ${collapsed ? 'left-0' : 'left-0 right-0'}
+            ${isRight ? 'right-0' : 'left-0'}
             bg-white dark:bg-stone-800
             border border-stone-200 dark:border-stone-700
-            rounded-lg shadow-lg overflow-hidden
+            rounded-xl shadow-lg overflow-hidden
             min-w-[160px]
           `}
+          role="menu"
         >
           <button
             onClick={() => setMenuOpen(false)}
-            className="w-full flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700"
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700 arc-transition"
+            role="menuitem"
           >
             <Settings className="w-4 h-4" />
             Settings
@@ -87,7 +102,8 @@ export function UserMenu({ user, collapsed, onLogout }: UserMenuProps) {
               setMenuOpen(false)
               onLogout?.()
             }}
-            className="w-full flex items-center gap-3 px-4 py-2 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700"
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700 arc-transition"
+            role="menuitem"
           >
             <LogOut className="w-4 h-4" />
             Sign out
