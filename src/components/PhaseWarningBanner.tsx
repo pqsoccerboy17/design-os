@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import { AlertTriangle, X } from 'lucide-react'
-import { loadProductData } from '@/lib/product-loader'
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import { AlertTriangle, X } from "lucide-react";
+import { loadProductData } from "@/lib/product-loader";
 
 /**
  * Get a storage key based on the product name to track dismissed warnings per product
@@ -10,58 +10,61 @@ import { loadProductData } from '@/lib/product-loader'
 function getStorageKey(productName: string): string {
   const sanitized = productName
     .toLowerCase()
-    .replace(/\s+&\s+/g, '-and-') // Convert " & " to "-and-" first
-    .replace(/[^a-z0-9]+/g, '-')
-  return `design-os-phase-warning-dismissed-${sanitized}`
+    .replace(/\s+&\s+/g, "-and-") // Convert " & " to "-and-" first
+    .replace(/[^a-z0-9]+/g, "-");
+  return `design-os-phase-warning-dismissed-${sanitized}`;
 }
 
 export function PhaseWarningBanner() {
-  const productData = useMemo(() => loadProductData(), [])
-  const [isDismissed, setIsDismissed] = useState(true) // Start dismissed to avoid flash
+  const productData = useMemo(() => loadProductData(), []);
 
-  const hasDataModel = !!productData.dataModel
-  const hasDesignSystem = !!(productData.designSystem?.colors || productData.designSystem?.typography)
-  const hasShell = !!productData.shell?.spec
-  const hasDesign = hasDesignSystem || hasShell
+  const hasDataModel = !!productData.dataModel;
+  const hasDesignSystem = !!(
+    productData.designSystem?.colors || productData.designSystem?.typography
+  );
+  const hasShell = !!productData.shell?.spec;
+  const hasDesign = hasDesignSystem || hasShell;
 
-  const productName = productData.overview?.name || 'default-product'
-  const storageKey = getStorageKey(productName)
+  const productName = productData.overview?.name || "default-product";
+  const storageKey = getStorageKey(productName);
 
-  // Check localStorage on mount
-  useEffect(() => {
-    const dismissed = localStorage.getItem(storageKey) === 'true'
-    setIsDismissed(dismissed)
-  }, [storageKey])
+  // Use lazy initialization to check localStorage once on mount
+  const [isDismissed, setIsDismissed] = useState(() => {
+    return localStorage.getItem(storageKey) === "true";
+  });
 
   const handleDismiss = () => {
-    localStorage.setItem(storageKey, 'true')
-    setIsDismissed(true)
-  }
+    localStorage.setItem(storageKey, "true");
+    setIsDismissed(true);
+  };
 
   // Don't show if both phases are complete or if dismissed
   if ((hasDataModel && hasDesign) || isDismissed) {
-    return null
+    return null;
   }
 
   // Build the warning message
-  const missingPhases: { name: string; path: string }[] = []
+  const missingPhases: { name: string; path: string }[] = [];
   if (!hasDataModel) {
-    missingPhases.push({ name: 'Data Model', path: '/data-model' })
+    missingPhases.push({ name: "Data Model", path: "/data-model" });
   }
   if (!hasDesign) {
-    missingPhases.push({ name: 'Design', path: '/design' })
+    missingPhases.push({ name: "Design", path: "/design" });
   }
 
   return (
     <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg px-4 py-3 mb-6">
       <div className="flex items-start gap-3">
-        <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" strokeWidth={2} />
+        <AlertTriangle
+          className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 shrink-0"
+          strokeWidth={2}
+        />
         <div className="flex-1 min-w-0">
           <p className="text-sm text-amber-800 dark:text-amber-200">
-            Consider completing{' '}
+            Consider completing{" "}
             {missingPhases.map((phase, index) => (
               <span key={phase.path}>
-                {index > 0 && ' and '}
+                {index > 0 && " and "}
                 <Link
                   to={phase.path}
                   className="font-medium underline hover:no-underline"
@@ -69,7 +72,7 @@ export function PhaseWarningBanner() {
                   {phase.name}
                 </Link>
               </span>
-            ))}{' '}
+            ))}{" "}
             before designing sections.
           </p>
         </div>
@@ -81,5 +84,5 @@ export function PhaseWarningBanner() {
         </button>
       </div>
     </div>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Checkbox } from '@/components/ui/checkbox'
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Table,
   TableBody,
@@ -11,84 +11,84 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import {
-  ArrowLeft,
-  FileText,
-  Plus,
-  Trash2,
-  Building,
-} from 'lucide-react'
-import data from '@product/sections/invoicing/data.json'
+} from "@/components/ui/table";
+import { ArrowLeft, FileText, Plus, Trash2, Building } from "lucide-react";
+import data from "@product/sections/invoicing/data.json";
 
-const timeEntries = data.timeEntries.filter(te => te.invoiceId === null && te.billable)
-const billingStatus = data.projectBillingStatus
+const timeEntries = data.timeEntries.filter(
+  (te) => te.invoiceId === null && te.billable,
+);
+const billingStatus = data.projectBillingStatus;
 
 const projects: Record<string, string> = {
-  'proj-001': 'EasyVista ITSM Implementation',
-  'proj-002': 'HR Self-Service Portal',
-  'proj-003': 'Q2 Optimization Sprint',
-  'proj-004': 'Manufacturing Floor Assessment',
-}
+  "proj-001": "EasyVista ITSM Implementation",
+  "proj-002": "HR Self-Service Portal",
+  "proj-003": "Q2 Optimization Sprint",
+  "proj-004": "Manufacturing Floor Assessment",
+};
 
 const clients: Record<string, string> = {
-  'client-001': 'Acme Corporation',
-  'client-003': 'Initech Solutions',
-  'client-004': 'Stark Manufacturing',
-}
+  "client-001": "Acme Corporation",
+  "client-003": "Initech Solutions",
+  "client-004": "Stark Manufacturing",
+};
 
 function formatCurrency(cents: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(cents / 100)
+  }).format(cents / 100);
 }
 
 interface LineItem {
-  id: string
-  description: string
-  quantity: number
-  rate: number
-  amount: number
+  id: string;
+  description: string;
+  quantity: number;
+  rate: number;
+  amount: number;
 }
 
 export default function InvoiceGenerate() {
-  const [selectedClient] = useState('client-001')
-  const [selectedEntries, setSelectedEntries] = useState<Set<string>>(new Set())
-  const [lineItems, _setLineItems] = useState<LineItem[]>([])
+  const [selectedClient] = useState("client-001");
+  const [selectedEntries, setSelectedEntries] = useState<Set<string>>(
+    new Set(),
+  );
+  const [lineItems] = useState<LineItem[]>([]);
 
-  const clientTimeEntries = timeEntries.filter(te => {
-    const projectStatus = billingStatus.find(bs => bs.projectId === te.projectId)
-    return projectStatus !== undefined
-  })
+  const clientTimeEntries = timeEntries.filter((te) => {
+    const projectStatus = billingStatus.find(
+      (bs) => bs.projectId === te.projectId,
+    );
+    return projectStatus !== undefined;
+  });
 
   const toggleEntry = (id: string) => {
-    const newSelected = new Set(selectedEntries)
+    const newSelected = new Set(selectedEntries);
     if (newSelected.has(id)) {
-      newSelected.delete(id)
+      newSelected.delete(id);
     } else {
-      newSelected.add(id)
+      newSelected.add(id);
     }
-    setSelectedEntries(newSelected)
-  }
+    setSelectedEntries(newSelected);
+  };
 
   const selectAll = () => {
     if (selectedEntries.size === clientTimeEntries.length) {
-      setSelectedEntries(new Set())
+      setSelectedEntries(new Set());
     } else {
-      setSelectedEntries(new Set(clientTimeEntries.map(te => te.id)))
+      setSelectedEntries(new Set(clientTimeEntries.map((te) => te.id)));
     }
-  }
+  };
 
   const selectedTotal = clientTimeEntries
-    .filter(te => selectedEntries.has(te.id))
-    .reduce((sum, te) => sum + te.hours * (te.hourlyRate || 15000), 0)
+    .filter((te) => selectedEntries.has(te.id))
+    .reduce((sum, te) => sum + te.hours * (te.hourlyRate || 15000), 0);
 
   const selectedHours = clientTimeEntries
-    .filter(te => selectedEntries.has(te.id))
-    .reduce((sum, te) => sum + te.hours, 0)
+    .filter((te) => selectedEntries.has(te.id))
+    .reduce((sum, te) => sum + te.hours, 0);
 
   return (
     <div className="space-y-6">
@@ -146,13 +146,23 @@ export default function InvoiceGenerate() {
                   <label className="text-sm font-medium text-stone-700 dark:text-stone-300">
                     Issue Date
                   </label>
-                  <Input type="date" defaultValue={new Date().toISOString().split('T')[0]} />
+                  <Input
+                    type="date"
+                    defaultValue={new Date().toISOString().split("T")[0]}
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-stone-700 dark:text-stone-300">
                     Due Date
                   </label>
-                  <Input type="date" defaultValue={new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]} />
+                  <Input
+                    type="date"
+                    defaultValue={
+                      new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+                        .toISOString()
+                        .split("T")[0]
+                    }
+                  />
                 </div>
               </div>
             </CardContent>
@@ -162,9 +172,13 @@ export default function InvoiceGenerate() {
           <Card className="border-stone-200 dark:border-stone-700">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base">Unbilled Time Entries</CardTitle>
+                <CardTitle className="text-base">
+                  Unbilled Time Entries
+                </CardTitle>
                 <Button variant="outline" size="sm" onClick={selectAll}>
-                  {selectedEntries.size === clientTimeEntries.length ? 'Deselect All' : 'Select All'}
+                  {selectedEntries.size === clientTimeEntries.length
+                    ? "Deselect All"
+                    : "Select All"}
                 </Button>
               </div>
             </CardHeader>
@@ -181,10 +195,10 @@ export default function InvoiceGenerate() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {clientTimeEntries.map(entry => (
+                  {clientTimeEntries.map((entry) => (
                     <TableRow
                       key={entry.id}
-                      className={`cursor-pointer ${selectedEntries.has(entry.id) ? 'bg-sky-50 dark:bg-sky-900/20' : ''}`}
+                      className={`cursor-pointer ${selectedEntries.has(entry.id) ? "bg-sky-50 dark:bg-sky-900/20" : ""}`}
                       onClick={() => toggleEntry(entry.id)}
                     >
                       <TableCell>
@@ -194,7 +208,10 @@ export default function InvoiceGenerate() {
                         />
                       </TableCell>
                       <TableCell className="text-sm text-stone-600 dark:text-stone-400">
-                        {new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        {new Date(entry.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                        })}
                       </TableCell>
                       <TableCell className="text-sm">
                         {projects[entry.projectId]}
@@ -202,9 +219,13 @@ export default function InvoiceGenerate() {
                       <TableCell className="text-sm text-stone-900 dark:text-stone-100">
                         {entry.description}
                       </TableCell>
-                      <TableCell className="text-right font-medium">{entry.hours}h</TableCell>
                       <TableCell className="text-right font-medium">
-                        {formatCurrency(entry.hours * (entry.hourlyRate || 15000))}
+                        {entry.hours}h
+                      </TableCell>
+                      <TableCell className="text-right font-medium">
+                        {formatCurrency(
+                          entry.hours * (entry.hourlyRate || 15000),
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -217,7 +238,9 @@ export default function InvoiceGenerate() {
           <Card className="border-stone-200 dark:border-stone-700">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base">Additional Line Items</CardTitle>
+                <CardTitle className="text-base">
+                  Additional Line Items
+                </CardTitle>
                 <Button variant="outline" size="sm">
                   <Plus className="h-4 w-4 mr-2" />
                   Add Item
@@ -241,14 +264,24 @@ export default function InvoiceGenerate() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {lineItems.map(item => (
+                    {lineItems.map((item) => (
                       <TableRow key={item.id}>
                         <TableCell>{item.description}</TableCell>
-                        <TableCell className="text-right">{item.quantity}</TableCell>
-                        <TableCell className="text-right">{formatCurrency(item.rate)}</TableCell>
-                        <TableCell className="text-right font-medium">{formatCurrency(item.amount)}</TableCell>
+                        <TableCell className="text-right">
+                          {item.quantity}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {formatCurrency(item.rate)}
+                        </TableCell>
+                        <TableCell className="text-right font-medium">
+                          {formatCurrency(item.amount)}
+                        </TableCell>
                         <TableCell>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-red-500">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 text-red-500"
+                          >
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </TableCell>
@@ -293,7 +326,9 @@ export default function InvoiceGenerate() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-stone-500">Time Entry Total</span>
-                  <span className="font-medium">{formatCurrency(selectedTotal)}</span>
+                  <span className="font-medium">
+                    {formatCurrency(selectedTotal)}
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-stone-500">Additional Items</span>
@@ -304,7 +339,9 @@ export default function InvoiceGenerate() {
               <div className="pt-4 border-t border-stone-200 dark:border-stone-700">
                 <div className="flex justify-between text-sm">
                   <span className="text-stone-500">Subtotal</span>
-                  <span className="font-medium">{formatCurrency(selectedTotal)}</span>
+                  <span className="font-medium">
+                    {formatCurrency(selectedTotal)}
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm mt-2">
                   <span className="text-stone-500">Tax (0%)</span>
@@ -314,7 +351,9 @@ export default function InvoiceGenerate() {
 
               <div className="pt-4 border-t border-stone-200 dark:border-stone-700">
                 <div className="flex justify-between">
-                  <span className="font-semibold text-stone-900 dark:text-stone-100">Total</span>
+                  <span className="font-semibold text-stone-900 dark:text-stone-100">
+                    Total
+                  </span>
                   <span className="text-xl font-bold text-stone-900 dark:text-stone-100">
                     {formatCurrency(selectedTotal)}
                   </span>
@@ -322,7 +361,10 @@ export default function InvoiceGenerate() {
               </div>
 
               <div className="pt-4 space-y-2">
-                <Button className="w-full" disabled={selectedEntries.size === 0}>
+                <Button
+                  className="w-full"
+                  disabled={selectedEntries.size === 0}
+                >
                   <FileText className="h-4 w-4 mr-2" />
                   Create Invoice
                 </Button>
@@ -335,5 +377,5 @@ export default function InvoiceGenerate() {
         </div>
       </div>
     </div>
-  )
+  );
 }

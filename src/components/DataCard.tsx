@@ -1,53 +1,60 @@
-import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { ChevronDown } from 'lucide-react'
-import { EmptyState } from '@/components/EmptyState'
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
+import { EmptyState } from "@/components/EmptyState";
 
 interface DataMeta {
-  models: Record<string, string>
-  relationships: string[]
+  models: Record<string, string>;
+  relationships: string[];
 }
 
 interface DataCardProps {
-  data: Record<string, unknown> | null
+  data: Record<string, unknown> | null;
 }
 
 function extractMeta(data: Record<string, unknown>): DataMeta | null {
-  const meta = data._meta as DataMeta | undefined
-  if (meta && typeof meta === 'object' && meta.models && meta.relationships) {
-    return meta
+  const meta = data._meta as DataMeta | undefined;
+  if (meta && typeof meta === "object" && meta.models && meta.relationships) {
+    return meta;
   }
-  return null
+  return null;
 }
 
-function getDataWithoutMeta(data: Record<string, unknown>): Record<string, unknown> {
-  const { _meta, ...rest } = data
-  return rest
+function getDataWithoutMeta(
+  data: Record<string, unknown>,
+): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(data).filter(([key]) => key !== "_meta"),
+  );
 }
 
 function countRecords(data: Record<string, unknown>): number {
   // Count arrays at the top level as record collections (excluding _meta)
-  let count = 0
+  let count = 0;
   for (const [key, value] of Object.entries(data)) {
-    if (key !== '_meta' && Array.isArray(value)) {
-      count += value.length
+    if (key !== "_meta" && Array.isArray(value)) {
+      count += value.length;
     }
   }
-  return count
+  return count;
 }
 
 export function DataCard({ data }: DataCardProps) {
-  const [isJsonOpen, setIsJsonOpen] = useState(false)
+  const [isJsonOpen, setIsJsonOpen] = useState(false);
 
   // Empty state
   if (!data) {
-    return <EmptyState type="data" />
+    return <EmptyState type="data" />;
   }
 
-  const meta = extractMeta(data)
-  const dataWithoutMeta = getDataWithoutMeta(data)
-  const recordCount = countRecords(data)
+  const meta = extractMeta(data);
+  const dataWithoutMeta = getDataWithoutMeta(data);
+  const recordCount = countRecords(data);
 
   return (
     <Card className="border-stone-200 dark:border-stone-700 shadow-sm">
@@ -58,7 +65,7 @@ export function DataCard({ data }: DataCardProps) {
           </CardTitle>
           {recordCount > 0 && (
             <span className="text-xs font-medium text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">
-              {recordCount} {recordCount === 1 ? 'record' : 'records'}
+              {recordCount} {recordCount === 1 ? "record" : "records"}
             </span>
           )}
         </div>
@@ -116,12 +123,12 @@ export function DataCard({ data }: DataCardProps) {
           <CollapsibleTrigger className="flex items-center gap-2 text-left group">
             <ChevronDown
               className={`w-4 h-4 text-stone-400 dark:text-stone-500 transition-transform ${
-                isJsonOpen ? 'rotate-180' : ''
+                isJsonOpen ? "rotate-180" : ""
               }`}
               strokeWidth={1.5}
             />
             <span className="text-xs text-stone-500 dark:text-stone-400 group-hover:text-stone-700 dark:group-hover:text-stone-300 transition-colors">
-              {isJsonOpen ? 'Hide' : 'View'} JSON
+              {isJsonOpen ? "Hide" : "View"} JSON
             </span>
           </CollapsibleTrigger>
           <CollapsibleContent>
@@ -134,5 +141,5 @@ export function DataCard({ data }: DataCardProps) {
         </Collapsible>
       </CardContent>
     </Card>
-  )
+  );
 }
