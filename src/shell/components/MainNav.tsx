@@ -44,6 +44,8 @@ export function MainNav({ items, collapsed, showLabels, onNavigate }: MainNavPro
             className={`
               w-full flex items-center gap-3 px-3 py-2.5 rounded-xl
               text-sm font-medium arc-transition
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2
+              dark:focus-visible:ring-offset-stone-900
               ${collapsed && !showLabels ? 'justify-center' : ''}
               ${
                 isActive

@@ -2,12 +2,20 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+function Card({
+  className,
+  interactive = false,
+  ...props
+}: React.ComponentProps<"div"> & {
+  interactive?: boolean
+}) {
   return (
     <div
       data-slot="card"
+      tabIndex={interactive ? 0 : undefined}
       className={cn(
         "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
+        interactive && "cursor-pointer transition-all duration-200 ease-out hover:shadow-md hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2",
         className
       )}
       {...props}
@@ -61,11 +69,25 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+type CardContentPadding = 'none' | 'standard' | 'compact'
+
+const paddingClasses: Record<CardContentPadding, string> = {
+  none: 'px-6',
+  standard: 'px-6 py-4',
+  compact: 'px-6 py-2',
+}
+
+function CardContent({
+  className,
+  padding = 'none',
+  ...props
+}: React.ComponentProps<"div"> & {
+  padding?: CardContentPadding
+}) {
   return (
     <div
       data-slot="card-content"
-      className={cn("px-6", className)}
+      className={cn(paddingClasses[padding], className)}
       {...props}
     />
   )
