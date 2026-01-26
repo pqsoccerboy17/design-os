@@ -1,0 +1,13 @@
+title = "Gitleaks config for design-os"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlist for known safe patterns"
+paths = [
+  '''node_modules''',
+  '''\.lock$''',
+  '''package-lock\.json$''',
+  '''pnpm-lock\.yaml$''',
+]

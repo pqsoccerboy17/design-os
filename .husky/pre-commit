@@ -1,1 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
 npx lint-staged
+
+# Secrets detection - prevent committing secrets
+gitleaks protect --staged --verbose
